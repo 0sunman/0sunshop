@@ -10,7 +10,17 @@ import {
 export const getQueryClient = (() => {
     let client:(QueryClient | null) = null
     return ()=>{
-        if(!client) client = new QueryClient();
+        if(!client) client = new QueryClient({
+          defaultOptions:{
+            queries:{
+              cacheTime:1000*60*60*24,
+              staleTime:1000,
+              refetchOnMount:false,
+              refetchOnReconnect:false,
+              refetchOnWindowFocus:false
+            }
+          }
+        });
         return client
     }
 })()
@@ -30,7 +40,6 @@ export const fetcher = async ({
 })=>{
   try{
     const url = `${BASE_URL}${path}`;
-    console.log(url);
     const fetchOptions:RequestInit = {
       method,
       headers:{

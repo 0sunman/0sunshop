@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import { fetcher, QueryKeys } from "../../queryClient";
 import { Product } from "../../types";
-import ProductItem from "../components/product/ProductItem";
+import ProductItem from "../../components/product/ProductItem";
 /*
 category    : "men's clothing"
 description : "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday"
@@ -21,7 +21,7 @@ const ProductList = ()=> {
     return (
         <div>
             <h2> 상품리스트 </h2>
-            <ul>
+            <ul className="products">
             {data?.map((attr)=>{
                 console.log(attr);
                 return (
