@@ -1,3 +1,4 @@
+import request, { RequestDocument } from 'graphql-request';
 import {
     useQuery,
     useMutation,
@@ -26,9 +27,9 @@ export const getQueryClient = (() => {
 })()
 
 interface AnyOBJ{ [key:string]:any };
-const BASE_URL = `https://fakestoreapi.com`
+const BASE_URL = `/`
 
-export const fetcher = async ({
+export const restFetcher = async ({
   method,
   path,
   body,
@@ -52,7 +53,9 @@ export const fetcher = async ({
     return json;
   }catch(e){
     console.error(e);
-  }}
+  }} // RestAPI (method와 path)가 들어감.
+
+export const graphqlFetcher = async(query:RequestDocument, variables={})=>request(BASE_URL, query, variables); // query => GraphQL이 들어감.
 
 export const QueryKeys = {
   PRODUCTS : 'PRODUCTS',

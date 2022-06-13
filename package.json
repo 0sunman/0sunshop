@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/uuid": "^8.3.4",
     "graphql-request": "^4.3.0",
     "graphql-tag": "^2.12.6",
     "react": "^18.0.0",
@@ -15,7 +16,8 @@
     "react-query": "^3.39.1",
     "react-router-dom": "^6.3.0",
     "sass": "^1.52.3",
-    "scss": "^0.2.4"
+    "scss": "^0.2.4",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",
@@ -24,5 +26,8 @@
     "msw": "^0.42.1",
     "typescript": "^4.6.3",
     "vite": "^2.9.9"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

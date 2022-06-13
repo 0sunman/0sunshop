@@ -1,7 +1,8 @@
 import { useQuery } from "react-query";
-import { fetcher, QueryKeys } from "../../queryClient";
-import { Product } from "../../types";
+import { graphqlFetcher, QueryKeys } from "../../queryClient";
+import { ProductCustoms,ProductCustom, Product } from "../../types";
 import ProductItem from "../../components/product/ProductItem";
+import {GET_PRODUCTS} from "../../graphql/products";
 /*
 category    : "men's clothing"
 description : "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday"
@@ -14,15 +15,12 @@ title       : "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops"
 
 
 const ProductList = ()=> {
-    const {data} = useQuery<Product[]>(QueryKeys.PRODUCTS, ()=> fetcher({
-        method:'GET',
-        path:'/products'
-    }))
+    const {data} = useQuery<ProductCustoms>(QueryKeys.PRODUCTS, ()=> graphqlFetcher(GET_PRODUCTS))
     return (
         <div>
             <h2> 상품리스트 </h2>
             <ul className="products">
-            {data?.map((attr)=>{
+            {data?.products.map((attr)=>{
                 console.log(attr);
                 return (
                     <ProductItem {...attr}></ProductItem>
