@@ -21,7 +21,6 @@ const ProductList = ()=> {
             <h2> 상품리스트 </h2>
             <ul className="products">
             {data?.products.map((attr)=>{
-                console.log(attr);
                 return (
                     <ProductItem {...attr}></ProductItem>
                 )})}

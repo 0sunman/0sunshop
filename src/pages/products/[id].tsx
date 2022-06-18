@@ -12,7 +12,6 @@ const ProductDetail = ()=> {
     if(!data) return;
     const attr:ProductCustom = data;
 
-    //console.log(data)
     return <ProductDetailPage {...attr}></ProductDetailPage>;
 }
 export default ProductDetail;

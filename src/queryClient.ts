@@ -59,5 +59,6 @@ export const graphqlFetcher = async(query:RequestDocument, variables={})=>reques
 
 export const QueryKeys = {
   PRODUCTS : 'PRODUCTS',
+  CARTS : 'CARTS',
   FUCK:"FUCKS"
 }
