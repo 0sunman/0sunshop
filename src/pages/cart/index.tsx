@@ -1,6 +1,6 @@
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import CartItem from "../../components/product/CartItem";
-import { GET_CART } from "../../graphql/carts";
+import { DELETE_CART, GET_CART } from "../../graphql/carts";
 import { graphqlFetcher, QueryKeys } from "../../queryClient";
 import { Cart,CartDatas } from "../../types";
 

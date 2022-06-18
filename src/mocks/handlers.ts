@@ -57,6 +57,32 @@ export const handlers = [
             }
             return res(ctx.data({...found, amount:1}));
         }
+    }),
+    
+    graphql.mutation("UPDATE_CART",(req,res,ctx)=>{
+        const id = req.variables.id;
+        const amount = req.variables.amount;
+        debugger;
+
+        if(id && amount && mock_carts.get(id)){
+            const cartData = mock_carts.get(id);
+            if(cartData){
+                cartData.amount = amount;
+            }
+            return res(ctx.data({...cartData, isDone:true}));
+        }else{
+            return res(ctx.data({isDone:false}));
+        }
+    }),
+    graphql.mutation("DELETE_CART",(req,res,ctx)=>{
+        debugger
+        const id = req.variables.id;
+        if(mock_carts.get(id)){
+            mock_carts.delete(id);
+            return res(ctx.data({isDone:true}))
+        }else{
+            return res(ctx.data({isDone:false}))
+        }
     })
 ]
 
