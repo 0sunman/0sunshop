@@ -5,10 +5,14 @@ import { graphqlFetcher, QueryKeys } from "../../queryClient";
 import { Cart,CartDatas } from "../../types";
 
 const CartPage = () => {
-    const {data} = useQuery<CartDatas>(QueryKeys.CARTS,()=>graphqlFetcher(GET_CART),{staleTime:0, cacheTime:1000})
+    const {data} = useQuery<Cart[]>("getCart",()=>graphqlFetcher(GET_CART),{staleTime:0, cacheTime:1000})
+    console.log(data);
+
     if(data){
         return (<div>
-            {data?.carts.map(attr => <CartItem {...attr}/>)}
+            {Object.keys(data).map((key:string)=> 
+                <CartItem {...data[key]}/>
+            )}
         </div>)
     }else{
         return(<div>없음.</div>)

@@ -13,7 +13,7 @@ const mock_products = (() => Array.from({length:20}).map((_, i)=>({
     createdAt:new Date(1645735501883 + i * 1000 * 60 * 60 * 10).toString()
 })))()
 
-const mock_carts:Map<string,Cart> = new Map();
+const mock_carts:Cart[] = {};
 
 export const handlers = [
     graphql.query("GET_PRODUCTS", (req,res,ctx)=>{
@@ -37,14 +37,12 @@ export const handlers = [
     }),
 
     graphql.query("GET_CART", (req,res,ctx)=>{
-        const array = Array.from(mock_carts,([a,b])=>b);
-
-        return res(ctx.data({carts:array}));
+        return res(ctx.data(mock_carts));
     }),
     graphql.mutation("ADD_CART",(req,res,ctx)=>{
-        const id = req.variables.id;
-        if(mock_carts.get(id)){
-            const cartData = mock_carts.get(id);
+        const id:any = String(req.variables.id);
+        if(mock_carts[id]){
+            const cartData = mock_carts[id];
             if(cartData){
                 cartData.amount = cartData.amount + 1;
             }
@@ -53,19 +51,18 @@ export const handlers = [
             const found = mock_products.find(element => (element.id === id));
             if(found){
                 let newCart:Cart = {...found, amount:1};
-                if(newCart !== null) mock_carts.set(id,newCart);
+                if(newCart !== null) mock_carts[id] = newCart;
             }
+
             return res(ctx.data({...found, amount:1}));
         }
     }),
     
     graphql.mutation("UPDATE_CART",(req,res,ctx)=>{
-        const id = req.variables.id;
+        const id:any = String(req.variables.id);
         const amount = req.variables.amount;
-        debugger;
-
-        if(id && amount && mock_carts.get(id)){
-            const cartData = mock_carts.get(id);
+        if(id && amount && mock_carts[id]){
+            const cartData = mock_carts[id];
             if(cartData){
                 cartData.amount = amount;
             }
@@ -75,10 +72,9 @@ export const handlers = [
         }
     }),
     graphql.mutation("DELETE_CART",(req,res,ctx)=>{
-        debugger
-        const id = req.variables.id;
-        if(mock_carts.get(id)){
-            mock_carts.delete(id);
+        const id:any = String(req.variables.id);
+        if(mock_carts[id]){
+            delete mock_carts[id];
             return res(ctx.data({isDone:true}))
         }else{
             return res(ctx.data({isDone:false}))

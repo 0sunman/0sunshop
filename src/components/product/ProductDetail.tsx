@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 const ProductDetailPage = ({
     description,
-    id,
     imageUrl,
     price,
     title
