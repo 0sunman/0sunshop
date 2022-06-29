@@ -1,34 +1,13 @@
 {
-  "name": "0sunshop",
-  "private": true,
-  "version": "0.0.0",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@types/uuid": "^8.3.4",
-    "graphql-request": "^4.3.0",
-    "graphql-tag": "^2.12.6",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-query": "^3.39.1",
-    "react-router-dom": "^6.3.0",
-    "recoil": "^0.7.3",
-    "sass": "^1.52.3",
-    "scss": "^0.2.4",
-    "uuid": "^8.3.2"
-  },
-  "devDependencies": {
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "@vitejs/plugin-react": "^1.3.0",
-    "msw": "^0.42.1",
-    "typescript": "^4.6.3",
-    "vite": "^2.9.9"
-  },
-  "msw": {
-    "workerDirectory": "public"
-  }
+    "name":"0sun-shop",
+    "version":"1.0.0",
+    "main":"index.js",
+    "repository": "",
+    "author":"0sun",
+    "license": "MIT",
+    "private":true,
+    "workspaces":["client","server"],
+    "scripts":{
+        "client":"yarn workspace client run dev"
+    }
 }

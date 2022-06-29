@@ -1,19 +1,19 @@
-import {graphql, rest} from 'msw';
-import { QueryKeys } from '../queryClient';
-import { v4 as uuid } from 'uuid';
+import { graphql } from 'msw';
 import { Cart } from '../types';
+
+
+const mock_carts:{[id:string]:Cart} = {}
 
 
 const mock_products = (() => Array.from({length:20}).map((_, i)=>({
     id: (i)+"",
-    imageUrl:`https://placeimg.com/150/100/${i+1}`,
+    imageUrl:`https://picsum.photos/id/${i+10}/150/100`,
     price:50000,
     title:`임시상품${i+1}`,
     description:`임시상세내용${i+1}`,
     createdAt:new Date(1645735501883 + i * 1000 * 60 * 60 * 10).toString()
 })))()
 
-const mock_carts:Cart[] = {};
 
 export const handlers = [
     graphql.query("GET_PRODUCTS", (req,res,ctx)=>{
@@ -40,7 +40,7 @@ export const handlers = [
         return res(ctx.data(mock_carts));
     }),
     graphql.mutation("ADD_CART",(req,res,ctx)=>{
-        const id:any = String(req.variables.id);
+        const id:string = String(req.variables.id);
         if(mock_carts[id]){
             const cartData = mock_carts[id];
             if(cartData){
@@ -79,6 +79,12 @@ export const handlers = [
         }else{
             return res(ctx.data({isDone:false}))
         }
+    }),
+    graphql.mutation("EXECUTE_PAY",({variables:ids}, res, ctx)=>{
+        ids.forEach((id:string)=>{
+            delete mock_carts[id]
+        })
+        return res(ctx.data(mock_carts));
     })
 ]
 

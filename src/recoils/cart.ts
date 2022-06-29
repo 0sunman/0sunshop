@@ -1,4 +1,5 @@
 import { atom,selector, selectorFamily } from "recoil";
+import { Cart } from "../types";
 
 export const Text1 = atom({
     key:"Text1",
@@ -19,12 +20,11 @@ export const TextState1 = selector<string|undefined>({
 })
 
 /* new */
-
-const CartState = atom({
-    key:"CartState",
-    default:new Map()
+export const CheckedCartState = atom<Cart[]>({
+    key:"CheckedCartState",
+    default:[] as Cart[]
 })
-
+/*
 export const CartAmount = selectorFamily<number,string>({
     key:"CartAmount",
     get : (id:string) => ({get}) => {
@@ -39,3 +39,4 @@ export const CartAmount = selectorFamily<number,string>({
         set(CartState,newCart);
     }
 })
+*/
