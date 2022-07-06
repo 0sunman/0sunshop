@@ -2,21 +2,39 @@ import { gql } from "graphql-tag";
 
 export const GET_CART = gql`
     query GET_CART{
-        id
-        imageUrl
-        price
-        title
-        amount
+        cart{
+            cartItem{
+                id
+                imageUrl
+                product{
+                    id
+                    imageUrl
+                    price
+                    title
+                    description
+                    createdAt
+                }
+            }
+        }
+
     }
 `
 
 export const ADD_CART = gql`
     mutation ADD_CART($id:string){
-        id
-        imageUrl
-        price
-        title
-        amount
+        cartItem(id:$id){
+            id
+            imageUrl
+            product{
+                id
+                imageUrl
+                price
+                title
+                description
+                createdAt
+            }
+        }
+
     }
 `
 
@@ -28,11 +46,17 @@ export const DELETE_CART = gql`
 
 export const UPDATE_CART = gql`
     mutation UPDATE_CART($id:string, $amount:number){
-        id
-        imageUrl
-        price
-        title
-        amount
-        isDone
+        cartItem(id:$id, amount:$amount){
+            id
+            imageUrl
+            product{
+                id
+                imageUrl
+                price
+                title
+                description
+                createdAt
+            }
+        }
     }
 `

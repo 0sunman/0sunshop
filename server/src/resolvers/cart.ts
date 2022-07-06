@@ -1,42 +1,34 @@
+import { DBField } from "../dbController";
 import { Resolver } from "./types";
-
-let cartDatas = [{id:"1", amount:1},{id:"2", amount:2}];
-const mock_products = (() => Array.from({length:20}).map((_, i)=>({
-    id: (i)+"",
-    imageUrl:`https://picsum.photos/id/${i+10}/150/100`,
-    price:50000,
-    title:`임시상품${i+1}`,
-    description:`임시상세내용${i+1}`,
-    createdAt:new Date(1645735501883 + i * 1000 * 60 * 60 * 10).toString()
-})))()
 
 const cartResolver:Resolver = {
     Query : {
-        cart:(parent,args,context,info)=>{
-            return cartDatas
+        cart:(parent,args,{db})=>{
+            return db.cart
         }
     },
     Mutation:{
-        addCart:(parent,{id},context,info)=>{
-            if(cartDatas[id]){
-                const cartData = cartDatas[id];
+        /*
+        addCart:(parent,{id},{db},info)=>{
+            if(db.cart[id]){
+                const cartData = db.cart[id];
                 if(cartData){
                     cartData.amount = cartData.amount + 1;
                 }
                 return cartData;
             }else{
-                const found = mock_products.find(element => (element.id === id));
+                const found = db.products.find((element:any) => (element.id === id));
                 if(found){
                     let newCart = {...found, amount:1};
-                    if(newCart !== null) cartDatas[id] = newCart;
+                    if(newCart !== null) db.cart[id] = newCart;
                 }
 
                 return {...found, amount:1};
             }
         },
-        updateCart:(parent,{id,amount},context,info)=>{
-            if(id && amount && cartDatas[id]){
-                const cartData = cartDatas[id];
+        updateCart:(parent,{id,amount},{db},info)=>{
+            if(id && amount && db.cart[id]){
+                const cartData = db.cart[id];
                 if(cartData){
                     cartData.amount = amount;
                 }
@@ -45,22 +37,25 @@ const cartResolver:Resolver = {
                 return {isDone:false};
             }
         },
-        deleteCart:(parent,{id},context,info)=>{
-            if(cartDatas[id]){
-                delete cartDatas[id];
+        deleteCart:(parent,{id},{db},info)=>{
+            if(db.cart[id]){
+                delete db.cart[id];
                 return {isDone:true}
             }else{
                 return {isDone:false}
             }
 
         },
-        executePay:(parent,{ids},context,info)=>{
-            const newCartData = cartDatas.filter(cartItem =>
+        executePay:(parent,{ids},{db},info)=>{
+            const newCartData = db.cart.filter((cartItem:any) =>
                 (!ids.includes(cartItem.id)) 
             )
-            cartDatas = newCartData;
+            db.cart = newCartData;
             return ids;
-        }
+        }*/
+    },
+    CartItem:{
+        product:(cartItem, args, {db})=>db.products.find((product:any) => product.id === cartItem.id)
     }
 }
 

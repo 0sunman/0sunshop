@@ -27,7 +27,7 @@ export const getQueryClient = (() => {
 })()
 
 interface AnyOBJ{ [key:string]:any };
-const BASE_URL = `/`
+const BASE_URL = `http://localhost:8000/graphql`
 
 export const restFetcher = async ({
   method,

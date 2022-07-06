@@ -4,16 +4,16 @@ import { getQueryClient } from "./queryClient";
 import { routes } from "./routes";
 import GNB from "./components/gnb"
 import "./sass/index.scss"
-import { workerMock } from './mocks/browsers';
+import { ReactQueryDevtools } from 'react-query/devtools'
 
-if (import.meta.env.DEV) {
-  workerMock.start()
-}
 
 const App = () =>{
   const elem = useRoutes(routes);
   const queryClient = getQueryClient();
-  return <QueryClientProvider client={queryClient}><GNB/>{elem}</QueryClientProvider>
+  return <QueryClientProvider client={queryClient}>
+    <GNB/>{elem}
+    <ReactQueryDevtools initialIsOpen={false} />
+  </QueryClientProvider>
 }
 
 
