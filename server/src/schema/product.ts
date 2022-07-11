@@ -10,8 +10,24 @@ const productSchema = gql`
         createdAt:Float #13자리이상
     }
     extend type Query{
-        products:[Product!] #파일구조
+        products(cursor: ID, showDeleted:Boolean):[Product!] #파일구조
         product(id: ID!): Product! #리드!
+    }
+    extend type Mutation{
+        addProduct(
+            imageUrl:String!,
+            price:Int!,
+            title:String!,
+            description:String
+        ):Product!
+        updateProduct(
+            id:ID!,
+            imageUrl:String!,
+            price:Int!,
+            title:String!,
+            description:String,
+        ):Product!
+        deleteProduct(id:ID!):ID!
     }
 `
 export default productSchema;

@@ -15,17 +15,16 @@ export interface ProductCustom{
 
 export interface Cart{
     id:string,
-    imageUrl:string,
-    price:number,
-    title:string,
-    createdAt:string,
-    amount:number
+    amount:number,
+    product:ProductCustom
 }
 
 export interface CartDatas{
-    carts:Cart[];
+    cart:Cart[];
 }
 
 export interface ProductCustoms{
     products:ProductCustom[]
 }
+
+export type MutableProduct = Omit<ProductCustom, "id"|"createdAt">

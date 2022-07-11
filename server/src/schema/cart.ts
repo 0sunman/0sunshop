@@ -10,7 +10,7 @@ const cartSchema = gql`
         cart:[CartItem!]
     }
     extend type Mutation{
-        addCart(id:ID!):CartItem!
+        addCart(id:ID!):[CartItem]
         updateCart(id: ID!, amount:Int!):CartItem!
         deleteCart(id: ID!):ID!
         executePay(ids:[ID!]):[ID!]

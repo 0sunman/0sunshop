@@ -24,7 +24,7 @@ const CartList = (items:Cart[])=>{
     }
     const setItemsCheckedFromAll = (targetInput: HTMLInputElement)=>{
         const allChecked = targetInput.checked;
-        checkboxRefs.forEach((element)=>{ // 3. 그냥 이렇게 쓰면됨. 개편함.
+        checkboxRefs.filter(input => !input.current!.disabled).forEach((element)=>{ // 3. 그냥 이렇게 쓰면됨. 개편함.
             element.current!.checked = allChecked;
         })
     }
@@ -72,7 +72,7 @@ const CartList = (items:Cart[])=>{
             <form ref={formRef} onChange={onChange}>
             <p><input type="checkbox" className='select-all' name='select-all'></input></p>
             {itemDatas.map((item,idx)=> 
-                <CartItem {...item} ref={checkboxRefs[idx]} dataKey={idx} key={idx}/>
+{      console.log(item)        ;return  <CartItem {...item} ref={checkboxRefs[idx]} dataKey={idx} key={idx}/>}
             )}
             </form>
             <WillPay handleSubmit={handleSubmit}/>

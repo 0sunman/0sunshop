@@ -1,15 +1,18 @@
 import products from "../../pages/products";
-import { ProductCustoms } from "../../types";
+import { ProductCustoms, ProductCustom } from "../../types";
 import ProductItem from "./ProductItem";
 
-const ProductList = ({list}:{list:ProductCustoms})=>{
+const ProductList = ({list}:{
+    list:{
+            products: ProductCustom[]
+        }[]
+    })=>{
     return (
         <ul className="products">
-            {list?.map((attr)=>{
-                return (
-                    <ProductItem {...attr}></ProductItem>
-                )
-            })}
+            {list?.map(page => page.products.map(product => (
+                    <ProductItem {...product} key={product.id}></ProductItem>
+            )))}
+            
         </ul>
         )
 }

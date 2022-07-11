@@ -11,19 +11,20 @@ const WillPay = ({
 })=>{
     const navigate = useNavigate();
     const checkedItems = useRecoilValue(CheckedCartState);
-    const totalPrice = checkedItems.reduce((res,{amount,price},index)=>{
-            res += (price * amount);
+    const totalPrice = checkedItems.reduce((res,{product:{price,createdAt},amount})=>{
+            if(createdAt) res += (price * amount);
         return res;    
     },0);
     return (
         <div>
-            {checkedItems.map(({imageUrl, price, title,id,amount})=>{
+            {checkedItems.map(({product:{imageUrl, price, title, createdAt},id,amount})=>{
                 
                 return (
             <div>
                 <ItemData imageUrl={imageUrl} price={price} title={title} key={id}/>
                 <p>수량 : {amount}</p>
                 <p>가격 : {price * amount}</p>
+                {!createdAt && "삭제된 상품입니다."}
             </div>)})}
             <p>총 예상 결제액 : {totalPrice}</p>
             <button onClick={handleSubmit}>결제하기</button>

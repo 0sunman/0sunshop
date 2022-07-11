@@ -16,12 +16,12 @@ const ProductItem = ({
     const setCartAmount = useSetRecoilState(CartAmount((id)));
     */
    const {mutate:addCart} = useMutation(()=>graphqlFetcher(ADD_CART,{id}))
-    const AddCartAmount = () => addCart() //setCartAmount((cartAmount|0)+1)
+    const AddCartAmount = () =>{addCart()} //setCartAmount((cartAmount|0)+1)
     return (<li className="product-item">
                 <Link to={`/products/${id}`}>
                     <p  className="product-item__title">{title}</p>
                     <p><img  className="product-item__image" src={imageUrl}/></p>
-                    <p><span  className="product-item__price">${price}</span></p>
+                    <p><span  className="product-item__price">₩{price}</span></p>
                 </Link>
                 <p><button onClick={AddCartAmount}> 담기</button></p>
             </li>)

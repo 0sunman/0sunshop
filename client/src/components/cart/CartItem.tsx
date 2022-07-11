@@ -1,5 +1,5 @@
-import { Cart } from "../../types";
-import { Query, useMutation, useQuery } from "react-query";
+import { Cart, CartDatas } from "../../types";
+import { Query, QueryClient, useMutation, useQuery } from "react-query";
 import { ADD_CART, DELETE_CART, GET_CART, UPDATE_CART } from "../../graphql/carts";
 import { getQueryClient, graphqlFetcher, QueryKeys } from "../../queryClient";
 import React, { ForwardedRef, forwardRef, RefObject, SyntheticEvent, useEffect, useState } from "react";
@@ -10,63 +10,47 @@ import ItemData from "./ItemData";
 
 const CartItem = ({
     id,
-    imageUrl,
+   product:{ imageUrl,
     price,
     title,
+    createdAt},
     amount,
     dataKey
 }:Cart, ref:ForwardedRef<HTMLInputElement>)=>{
     const client = getQueryClient();
     const {mutate:deleteCart} = useMutation(()=>graphqlFetcher(DELETE_CART,{id}), {
         onMutate:async ()=>{
-            client.cancelQueries("getCart")
-            const previousCart = client.getQueryData<{[key:string]:Cart}>("getCart");
-            if(!previousCart?.[id]) return previousCart;
-            let cnt = 0;
-            
-            const temp = [];
-            for(let key in previousCart){
-                if(previousCart[key].id !== id){
-                    temp.push(previousCart[key]);
-                }
-                cnt++;
-            }
-            const newCart = {...temp}
-            client.setQueryData("getCart",newCart);
-            return previousCart;
         },
         onSuccess:()=>{
-            const previousCart = client.getQueryData<{[key:string]:Cart}>("getCart");
-            if(!previousCart?.[id]){
-                let cnt = 0;
-                const temp = [];
-                for(let key in previousCart){
-                    if(previousCart[key].id !== id){
-                        temp.push(previousCart[key]);
-                    }
-                    cnt++;
-                }
-                const newCart = {...temp}
-                client.setQueryData("getCart",newCart);
-            }
+            client.invalidateQueries("getCart",{
+                exact:false,
+                refetchInactive:true,
+            })
         }
     })
     const {mutate:updateAmount} = useMutation("cartUpdate",({id,amount}:{id:string,amount:number})=>graphqlFetcher(UPDATE_CART,{id,amount}),{
         onMutate:async ({id,amount})=>{
-            console.log("current Data",id,amount)
-            client.cancelQueries("getCart")
-            const previousCart = client.getQueryData<{[key:string]:Cart}>("getCart");
-            if(!previousCart?.[id]) return previousCart;
-            const newCart = { ...(previousCart||{}), [id]:{...previousCart[id],amount}}
-            client.setQueryData("getCart",newCart);
-            return {previousCart}
+
+            await client.cancelQueries("getCart");
+            const {cart:prevCart} = client.getQueryData<{cart:Cart[]}>("getCart")|| {};
+            if(!prevCart) return null;
+
+            const targetIndex = prevCart?.findIndex(cartItem =>cartItem.id === id);
+            if(targetIndex === undefined || targetIndex < 0) return prevCart;
+
+            const newCart = [...prevCart];
+            newCart.splice(targetIndex,1,{...newCart[targetIndex], amount});
+            client.setQueryData("getCart",{cart:newCart});
+            return prevCart;
         },
-        onSuccess: (data,{id,amount}) =>{
-            const previousCart = client.getQueryData<{[key:string]:Cart}>("getCart");
-            if(!previousCart?.[id]){
-                const newCart = { ...(previousCart||{}), [id]:{...previousCart[id],amount}}
-                client.setQueriesData("getCart",newCart)
-            }
+        onSuccess: ({updateCart}) =>{
+            const {cart:prevCart} = client.getQueryData<{cart:Cart[]}>("getCart") || {cart:[]};
+            const targetIndex = prevCart?.findIndex(cartItem =>cartItem.id === updateCart.id);
+            if(!prevCart || targetIndex === undefined || targetIndex < 0) return;
+
+            const newCart = [...prevCart];
+            newCart.splice(targetIndex,1,updateCart);
+            client.setQueryData("getCart",{cart:newCart});
         }
     })
     const onChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
@@ -75,12 +59,12 @@ const CartItem = ({
     }
     const onDelete = (e:SyntheticEvent)=>{
         e.preventDefault();
-        deleteCart(id);
+        deleteCart();
     }
     return (<li className="product-item">
-                    <p data-key={dataKey}><input type="checkbox" className='product-item__selectitem' name='selectItem' ref={ref} data-id={id}></input></p>
+                    <p data-key={dataKey}><input type="checkbox" className='product-item__selectitem' name='selectItem' ref={ref} data-id={id} disabled={!createdAt}></input></p>
                     <ItemData id={id} title={title} imageUrl={imageUrl} price={price}></ItemData>
-                    <p><input className="product-item__amount" type="number" value={amount} onChange={onChange}></input></p>
+                    {!createdAt ? <div>삭제된 상품입니다.</div> : <p><input className="product-item__amount" type="number" value={amount} onChange={onChange}></input></p>}
                     <p><button onClick={onDelete}>삭제2</button></p>
             </li>)
     }
