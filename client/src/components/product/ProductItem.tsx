@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useMutation } from "react-query";
 import { ADD_CART } from "../../graphql/carts";
 import { graphqlFetcher, QueryKeys } from "../../queryClient";
+import splitPrice from "../../utill/splitPrice";
 
 const ProductItem = ({
     id,
@@ -19,11 +20,11 @@ const ProductItem = ({
     const AddCartAmount = () =>{addCart()} //setCartAmount((cartAmount|0)+1)
     return (<li className="product-item">
                 <Link to={`/products/${id}`}>
-                    <p  className="product-item__title">{title}</p>
                     <p><img  className="product-item__image" src={imageUrl}/></p>
-                    <p><span  className="product-item__price">₩{price}</span></p>
+                    <p className="product-item__title">{title}</p>
+                    <p><span  className="product-item__price">{splitPrice(price)}</span> <span className="product-item__won">원</span></p>
                 </Link>
-                <p><button onClick={AddCartAmount}> 담기</button></p>
+                <span className="product-item__underbutton"><button onClick={AddCartAmount}> 담기</button></span>
             </li>)
     }
 

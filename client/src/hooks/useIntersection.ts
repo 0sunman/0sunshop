@@ -6,6 +6,7 @@ const useIntersection = (targetRef: RefObject<HTMLElement>)=>{
     const getObserver = useCallback(()=>{
         if(!observerRef.current){
             observerRef.current = new IntersectionObserver(entries =>{
+                console.log(entries)
                 setIntersecting(entries.some(entry => entry.isIntersecting))
             })
         }

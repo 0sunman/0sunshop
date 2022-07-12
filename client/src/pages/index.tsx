@@ -1,2 +1,2 @@
-const ProductDetail = ()=> <>상세페이지</>
+const ProductDetail = ()=> <>홈</>
 export default ProductDetail;

@@ -1,1 +1,10 @@
-@import "./products.scss"
+@import "./products.scss";
+@import "./reset.scss";
+@import "./gnb.scss";
+@import "./cart.scss";
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+html{font-family: 'Noto Sans KR', sans-serif;}
+body{margin-bottom:100px;}
+#root {}
+#root > div:nth-child(2){width:95%; margin:0 auto; padding:10px; background-color: #fff;}

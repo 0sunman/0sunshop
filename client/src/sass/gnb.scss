@@ -1,0 +1,26 @@
+.gnb{
+     display:block; width:100%; background: #fff; border-top:1px solid #c8c8c8; z-index: 20;
+    ul{
+        position:relative; list-style: none; padding:0; display:flex; flex-direction: row; gap:10px; justify-content:center; align-items: center;height:65px;         
+    }
+    &.bottom{
+        li{
+            width: 20%;
+            text-align:center;
+        }
+        position:fixed;
+        bottom:0; 
+    }
+    &.top{
+        button.goback{
+            position: absolute;
+            left: 0;
+            top: 0px;
+            width: 40px;
+            height: 65px;
+            font-size: 20px;
+            background-color: transparent;
+            border:0px;
+        }
+    }
+}

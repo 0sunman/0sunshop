@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useRecoilValue, useResetRecoilState } from "recoil";
 import { CheckedCartState } from "../../recoils/cart";
 import ItemData from "../cart/ItemData";
-
+import styled from 'styled-components';
 const WillPay = ({
     handleSubmit
 }:{

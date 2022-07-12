@@ -20,6 +20,6 @@
     "nodemon": "^2.0.18"
   },
   "scripts": {
-    "dev": "nodemon --exec 'ts-node ./src/index.ts'"
+    "dev": "nodemon --exec \"ts-node ./src/index.ts\""
   }
 }

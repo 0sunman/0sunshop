@@ -71,9 +71,11 @@ const CartList = (items:Cart[])=>{
     return (<div>
             <form ref={formRef} onChange={onChange}>
             <p><input type="checkbox" className='select-all' name='select-all'></input></p>
+                <ul className="products">
             {itemDatas.map((item,idx)=> 
-{      console.log(item)        ;return  <CartItem {...item} ref={checkboxRefs[idx]} dataKey={idx} key={idx}/>}
-            )}
+                            {return  <CartItem {...item} ref={checkboxRefs[idx]} dataKey={idx} key={idx}/>}
+                            )}
+                            </ul>
             </form>
             <WillPay handleSubmit={handleSubmit}/>
         </div>)

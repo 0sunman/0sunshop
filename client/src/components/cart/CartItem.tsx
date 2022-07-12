@@ -4,7 +4,8 @@ import { ADD_CART, DELETE_CART, GET_CART, UPDATE_CART } from "../../graphql/cart
 import { getQueryClient, graphqlFetcher, QueryKeys } from "../../queryClient";
 import React, { ForwardedRef, forwardRef, RefObject, SyntheticEvent, useEffect, useState } from "react";
 import ItemData from "./ItemData";
-
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {faXmark} from "@fortawesome/free-solid-svg-icons"
 
 
 
@@ -61,11 +62,16 @@ const CartItem = ({
         e.preventDefault();
         deleteCart();
     }
-    return (<li className="product-item">
-                    <p data-key={dataKey}><input type="checkbox" className='product-item__selectitem' name='selectItem' ref={ref} data-id={id} disabled={!createdAt}></input></p>
+    return (<li className="cart-item">
+                    <p className='cart-item__header' data-key={dataKey}>
+                        <span className="cart-item__header__title">
+                            <input className="cart-item__header__selectitem" type="checkbox" name='selectItem' ref={ref} data-id={id} disabled={!createdAt}/> {title}
+                        </span>
+                        <button className="cart-item__header__closebutton" onClick={onDelete}><FontAwesomeIcon icon={faXmark} /></button>
+                    </p>
                     <ItemData id={id} title={title} imageUrl={imageUrl} price={price}></ItemData>
                     {!createdAt ? <div>삭제된 상품입니다.</div> : <p><input className="product-item__amount" type="number" value={amount} onChange={onChange}></input></p>}
-                    <p><button onClick={onDelete}>삭제2</button></p>
+                    <p></p>
             </li>)
     }
 
