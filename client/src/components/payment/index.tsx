@@ -1,14 +1,12 @@
-import React, { ReactElement, useState } from "react";
+import { useState } from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useResetRecoilState } from "recoil"
-import { stringify } from "uuid";
-import { UPDATE_CART } from "../../graphql/carts";
+import { useRecoilState } from "recoil"
 import { EXECUTE_PAY } from "../../graphql/payment";
 import { graphqlFetcher } from "../../queryClient";
 import { CheckedCartState } from "../../recoils/cart"
-import WillPay from "../willPay";
 import PaymentModal from "./modal";
+import OrderList from "./orderlist";
 
 
 const Payment = ()=>{
@@ -34,7 +32,7 @@ const Payment = ()=>{
     }
     return  (
         <div>
-            <WillPay handleSubmit={showModal}/>
+            <OrderList handleSubmit={showModal}/>
             <PaymentModal show={modalShown} proceed={proceed} cancel={cancel}/>
         </div>
     )

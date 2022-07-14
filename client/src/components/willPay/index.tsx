@@ -4,6 +4,7 @@ import { useRecoilValue, useResetRecoilState } from "recoil";
 import { CheckedCartState } from "../../recoils/cart";
 import ItemData from "../cart/ItemData";
 import styled from 'styled-components';
+import splitPrice from '../../utill/splitPrice';
 const WillPay = ({
     handleSubmit
 }:{
@@ -15,19 +16,27 @@ const WillPay = ({
             if(createdAt) res += (price * amount);
         return res;    
     },0);
+    useEffect(()=>{
+
+    })
     return (
-        <div>
+        <div className="willPay">
+            <div className="willPay__products">
             {checkedItems.map(({product:{imageUrl, price, title, createdAt},id,amount})=>{
                 
                 return (
-            <div>
+            <div >
                 <ItemData imageUrl={imageUrl} price={price} title={title} key={id}/>
                 <p>수량 : {amount}</p>
-                <p>가격 : {price * amount}</p>
+                <p>가격 : {splitPrice(price * amount)}원</p>
                 {!createdAt && "삭제된 상품입니다."}
             </div>)})}
-            <p>총 예상 결제액 : {totalPrice}</p>
-            <button onClick={handleSubmit}>결제하기</button>
+
+            </div>
+            <div className="willPay__control">
+                <div>총 예상 결제액 : {totalPrice}</div>
+                <div><button onClick={handleSubmit}>결제하기</button></div>                
+            </div>
         </div>
     )
 }

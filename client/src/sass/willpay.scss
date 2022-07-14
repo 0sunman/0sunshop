@@ -1,0 +1,40 @@
+.willPay{
+    position: fixed;
+    width: 100%;
+    left: 0px;
+    bottom: 0px;
+    &__products{
+        display: flex;
+        background-color:#fff;
+        border-top:1px solid #c8c8c8;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        overflow-x: auto;
+        > div{
+            flex: 0 0 auto;
+            padding:10px;
+            width: 200px;
+        }
+    }
+    &__control{
+        display: flex;
+        justify-items: center;
+        align-items: center;
+        height : 65px;
+        background-color:#fff;
+        border-top:1px solid #c8c8c8;
+        > div:first-child{
+            width:80%;
+            text-align: center;
+        }
+        > div:last-child{
+            width:20%;height: 100%;
+            button{
+                padding: 0px;
+                margin: 0;
+                height: 100%;
+                width: 100%;
+            }
+        }
+    }
+}
