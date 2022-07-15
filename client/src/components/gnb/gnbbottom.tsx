@@ -18,12 +18,7 @@ const Bottom = () => {
     const gnbBottomRef = useRef<HTMLDivElement>(null);
     const bannedArea = ['cart','payment']
 
-    const {refetch} = useQuery<CartDatas>("getCart",()=>graphqlFetcher(GET_CART),{staleTime:0, cacheTime:0,
-        onSuccess:({cart})=>{
-            setCartLength(cart.length);
-        }
-    });
-
+    
     useEffect(()=>{
         bannedArea.some((path)=>{
             if(location.pathname.indexOf(path) > -1){
@@ -49,7 +44,6 @@ const Bottom = () => {
         console.log(cartLength);
     },[cartLength])
     useEffect(()=>{
-        refetch()
     })
 
 

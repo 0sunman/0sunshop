@@ -19,7 +19,11 @@ const ProductItem = ({
     const setCartAmount = useSetRecoilState(CartAmount((id)));
     */
    const [cartLength, setCartLength] = useRecoilState(CartLength);
-   const {mutate:addCart} = useMutation(()=>graphqlFetcher(ADD_CART,{id}))
+   const {mutate:addCart} = useMutation(()=>graphqlFetcher(ADD_CART,{id}),{onMutate:()=>{
+    refetch();
+   },onSuccess:()=>{
+    refetch();
+   }})
    
     const {refetch} = useQuery<CartDatas>("getCart",()=>graphqlFetcher(GET_CART),{staleTime:0, cacheTime:0,
         onSuccess:({cart})=>{
@@ -28,7 +32,6 @@ const ProductItem = ({
     });
 
     const AddCartAmount = () =>{
-        refetch();
         addCart()
     } //setCartAmount((cartAmount|0)+1)
     return (<li className="product-item">

@@ -2,14 +2,16 @@ import * as fs from 'fs'
 import { resolve } from 'path'
 export const enum DBField {
     CART = 'cart',
-    PRODUCTS = 'products'
+    PRODUCTS = 'products',
+    USER = 'user'
 }
 
 const basePath = resolve() // __dirname
 
 const filenames = {
     [DBField.CART]: resolve(basePath, 'src/db/cart.json'),
-    [DBField.PRODUCTS]:  resolve(basePath, 'src/db/products.json')
+    [DBField.PRODUCTS]:  resolve(basePath, 'src/db/products.json'),
+    [DBField.USER]:  resolve(basePath, 'src/db/users.json'),
 }
 
 export const readDB = (target: DBField) =>{

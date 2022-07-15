@@ -8,6 +8,7 @@ export type Resolver ={
                 db:{
                     cart:Cart
                     products:Products
+                    users:Users
                 }
             },
             info:any
@@ -15,6 +16,13 @@ export type Resolver ={
         
     }
 }
+
+export type User = {
+    id:string
+    password:string
+}
+
+export type Users = User[]
 
 export type Product={
     id:string
