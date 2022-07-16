@@ -19,11 +19,9 @@ const ProductItem = ({
     const setCartAmount = useSetRecoilState(CartAmount((id)));
     */
    const [cartLength, setCartLength] = useRecoilState(CartLength);
-   const {mutate:addCart} = useMutation(()=>graphqlFetcher(ADD_CART,{id}),{onMutate:()=>{
+   const {mutate:addCart} = useMutation(()=>graphqlFetcher(ADD_CART,{id}),{onSuccess(data, variables, context) {
     refetch();
-   },onSuccess:()=>{
-    refetch();
-   }})
+   },})
    
     const {refetch} = useQuery<CartDatas>("getCart",()=>graphqlFetcher(GET_CART),{staleTime:0, cacheTime:0,
         onSuccess:({cart})=>{
@@ -32,7 +30,8 @@ const ProductItem = ({
     });
 
     const AddCartAmount = () =>{
-        addCart()
+        addCart();
+        
     } //setCartAmount((cartAmount|0)+1)
     return (<li className="product-item">
                 <Link to={`/products/${id}`}>

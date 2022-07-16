@@ -1,6 +1,6 @@
 import { addDoc, deleteDoc, increment, query, serverTimestamp, updateDoc, where } from 'firebase/firestore';
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db } from "../firebase";
 import { DBField, writeDB } from "../dbController";
 import { Cart, Product, Resolver } from "./types";
 const setJSON = (data:Cart) => writeDB(DBField.CART, data);
@@ -35,12 +35,17 @@ const cartResolver:Resolver = {
                     product:productRef
                 })
             }
-            const snapshot = await getDoc(productRef);
-
-            return {
-                ...snapshot.data(),
+            const snapshot = (await getDocs(
+                query(cartCollection, where('product','==',productRef))
+            )).docs[0];
+            console.log({
                 product:productRef,
                 id:snapshot.id
+            })
+            return {
+                product:productRef,
+                id:snapshot.id,
+                amount:snapshot.data().amount
             }
         },
         updateCart:async (parent,{id,amount})=>{
@@ -93,7 +98,6 @@ const cartResolver:Resolver = {
     },
     CartItem:{
         product: async (cartItem, args)=>{
-            console.log("cartItem :",cartItem.id)
             const product = await getDoc(cartItem.product);
             //console.log("product:",product)
             

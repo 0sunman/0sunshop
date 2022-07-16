@@ -1,7 +1,7 @@
-import { Cart } from "../../types";
+import { Cart, ProductCustom } from "../../types";
 import splitPrice from "../../utill/splitPrice";
 
-const ItemData = ({title, imageUrl, price}:Pick<Cart, 'imageUrl' | 'price' | 'title'> ) =>{
+const ItemData = ({id, title, imageUrl, price}:Pick<ProductCustom, 'id'|'imageUrl' | 'price' | 'title'> ) =>{
     return (
         <div>
             <p><img  className="product-item__image" src={imageUrl}/></p>

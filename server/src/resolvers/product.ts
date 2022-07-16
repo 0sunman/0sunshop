@@ -2,7 +2,7 @@ import { Product, Products, Resolver } from "./types";
 import {v4 as uuid} from 'uuid';
 import { DBField, writeDB } from "../dbController";
 import {collection, DocumentData, getDoc, getDocs, limit, orderBy, query, startAfter, where, doc, serverTimestamp, addDoc, updateDoc, snapshotEqual} from 'firebase/firestore';
-import {db} from '../../firebase'
+import {db} from '../firebase'
 
 
 const setJSON = (data:Products) => writeDB(DBField.PRODUCTS, data);

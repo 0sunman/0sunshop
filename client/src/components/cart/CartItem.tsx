@@ -19,7 +19,8 @@ const CartItem = ({
     createdAt},
     amount,
     dataKey
-}:Cart, ref:ForwardedRef<HTMLInputElement>)=>{
+}:Cart & { dataKey : number }, ref:ForwardedRef<HTMLInputElement>)=>{
+    const [cartLength, setCartLength] = useRecoilState(CartLength);
     const client = getQueryClient();
     const {mutate:deleteCart} = useMutation(()=>graphqlFetcher(DELETE_CART,{id}), {
         onMutate:async ()=>{
@@ -29,6 +30,7 @@ const CartItem = ({
                 exact:false,
                 refetchInactive:true,
             })
+            refetch();
         }
     })
     const {mutate:updateAmount} = useMutation("cartUpdate",({id,amount}:{id:string,amount:number})=>graphqlFetcher(UPDATE_CART,{id,amount}),{
@@ -57,6 +59,12 @@ const CartItem = ({
             
         }
     })
+    const {refetch} = useQuery<CartDatas>("getCart",()=>graphqlFetcher(GET_CART),{staleTime:0, cacheTime:0,
+        onSuccess:({cart})=>{
+            setCartLength(cart.length);
+        }
+    });
+
     const onChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
         const amount:number = Number(e.target.value);
         updateAmount({id,amount});        
