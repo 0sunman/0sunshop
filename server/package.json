@@ -24,6 +24,6 @@
   "scripts": {
     "dev": "nodemon --exec \"ts-node ./src/index.ts\"",
     "build": "rm -rf dist && tsc",
-    "serve":"npn run build && cross-env NODE_ENV=production node ./dis/index.js"
+    "serve":"npm run build && cross-env NODE_ENV=production node ./dis/index.js"
   }
 }
