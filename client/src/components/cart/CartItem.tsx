@@ -6,6 +6,8 @@ import React, { ForwardedRef, forwardRef, RefObject, SyntheticEvent, useEffect, 
 import ItemData from "./ItemData";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faXmark} from "@fortawesome/free-solid-svg-icons"
+import { useRecoilState } from "recoil";
+import {CartLength} from "../../recoils/cart";
 
 
 
@@ -52,6 +54,7 @@ const CartItem = ({
             const newCart = [...prevCart];
             newCart.splice(targetIndex,1,updateCart);
             client.setQueryData("getCart",{cart:newCart});
+            
         }
     })
     const onChange = (e:React.ChangeEvent<HTMLInputElement>)=>{

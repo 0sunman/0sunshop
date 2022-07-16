@@ -13,6 +13,7 @@ import { DBField, readDB } from './dbController';
             db:{
                 products:readDB(DBField.PRODUCTS),
                 cart:readDB(DBField.CART),
+                users:readDB(DBField.USER),
             }
         }*/
     });

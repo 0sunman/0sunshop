@@ -3,7 +3,23 @@
 .products{
     list-style:none; 
     display:grid; 
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(6, 1fr);
+    @media (max-width:1400px) {
+        grid-template-columns: repeat(5, 1fr);
+    }
+    @media (max-width:1250px) {
+        grid-template-columns: repeat(4, 1fr);        
+    }
+    @media (max-width:1000px) {
+        grid-template-columns: repeat(3, 1fr);        
+    }
+    @media (max-width:767px) {
+        grid-template-columns: repeat(2, 1fr);        
+    }
+    @media (max-width:450px) {
+        grid-template-columns: repeat(1, 1fr);        
+    }
+
     gap:10px;
 }
 
@@ -16,10 +32,10 @@
     text-overflow: ellipsis;
     overflow: hidden;
     a{text-decoration: none; color:#000}
-    &__title{display: -webkit-box; margin:10px 0px 15px;height:35px; overflow: hidden; font-size: 15px;font-weight: 300; -webkit-line-clamp: 2;-webkit-box-orient: vertical;text-overflow: ellipsis;}
-    &__price{margin:10px 0px 15px;font-size: 18px;font-weight: bold;}
-    &__won{font-size: 15px;}
-    &__underbutton{position: absolute;right:5px;bottom:0px;}
+    &__title{display: -webkit-box; margin:10px 0px 15px;height:28px; overflow: hidden; font-size: 14px;font-weight: 300; -webkit-line-clamp: 2;-webkit-box-orient: vertical;text-overflow: ellipsis;word-break: break-all;}
+    &__price{margin:10px 0px 15px;font-size: 15px;font-weight: bold;}
+    &__won{font-size: 12px;}
+    &__underbutton{position: absolute;right:0px;bottom:0px;}
     &__image{
         width: 100%;
         object-fit:contain;

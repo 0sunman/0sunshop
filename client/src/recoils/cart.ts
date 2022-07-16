@@ -24,6 +24,10 @@ export const CheckedCartState = atom<Cart[]>({
     key:"CheckedCartState",
     default:[] as Cart[]
 })
+export const CartLength = atom<number>({
+    key:"CartLength",
+    default:0
+})
 /*
 export const CartAmount = selectorFamily<number,string>({
     key:"CartAmount",
