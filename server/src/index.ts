@@ -8,12 +8,13 @@ import { DBField, readDB } from './dbController';
     const server = new ApolloServer({
         typeDefs:schema,
         resolvers,
+        /*
         context:{
             db:{
                 products:readDB(DBField.PRODUCTS),
                 cart:readDB(DBField.CART),
             }
-        }
+        }*/
     });
     const app = express();
     await server.start();
