@@ -28,7 +28,7 @@ import env from './envLoader';
         app,
         path:'/graphql',
         cors:{
-            origin:["*",clientUrl,"http://localhost:3000","http://localhost:8000","http://localhost:8000/graphql", 'https://studio.apollographql.com'],
+            origin:[clientUrl, 'https://studio.apollographql.com'],
             credentials:true
         }
     })
