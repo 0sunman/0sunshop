@@ -1,10 +1,10 @@
 import React, {Suspense} from 'react';
 import { Outlet } from 'react-router-dom';
-import { GNBLoad } from '../components/gnb';
+import { GNBSpiner } from '../components/gnb';
 const Layout = () =>{
     return (
         <div>
-            <Suspense fallback={<GNBLoad></GNBLoad>}>
+            <Suspense fallback={<GNBSpiner/>}>
                 <Outlet/>
             </Suspense>
         </div>

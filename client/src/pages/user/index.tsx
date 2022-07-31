@@ -38,13 +38,21 @@ const Userpage = () => {
         setIsLogin(true);
         navigate(-1);
         refetch();
+    },onError:(err)=>{
+        console.log(err);
+        setIsLoading(false);
     }}) 
     const doLogin = (e:SyntheticEvent)=>{
         e.preventDefault();
         setIsLoading(true);
-        const formData = new FormData(e.target as HTMLFormElement);
-        const {userid,password} =(arrToObj([...formData]))
-        login({userid,password})
+        try{
+            const formData = new FormData(e.target as HTMLFormElement);
+            const {userid,password} =(arrToObj([...formData]))
+            login({userid,password})    
+        }catch(e){
+            alert("로그인 에러 발생!");
+            setIsLoading(false);
+        }
     }
     return (
         <div className="userpage">

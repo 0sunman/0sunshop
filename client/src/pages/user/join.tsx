@@ -42,14 +42,22 @@ const Userpage = () => {
         setIsLogin(true);
         navigate("/");
         refetch();
+    },onError:(err)=>{
+        console.log(err)
+        setIsLogin(false);
     }}) 
     const doJoin = (e:SyntheticEvent)=>{
         e.preventDefault();
-        setIsLoading(true)
-        const formData = new FormData(e.target as HTMLFormElement);
-        const {userid,password} =(arrToObj([...formData]))
-        console.log(userid,password)
-        join({userid,password})
+        setIsLoading(true);
+        try{
+            const formData = new FormData(e.target as HTMLFormElement);
+            const {userid,password} =(arrToObj([...formData]))
+            console.log(userid,password)
+            join({userid,password})    
+        }catch(e){
+            alert("회원가입 에러 발생!");
+            setIsLoading(false);
+        }
     }
     const onChange = (e:SyntheticEvent)=>{
         e.preventDefault();
