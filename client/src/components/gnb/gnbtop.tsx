@@ -1,16 +1,18 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faMagnifyingGlass,faArrowLeft} from "@fortawesome/free-solid-svg-icons"
-import { useLocation, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { ShopLayoutGNBTopDisplay, ShopLayoutScrollY } from "../../recoils/layout"
+import { ShopHeaderTextColor, ShopLayoutGNBTopDisplay, ShopLayoutScrollY } from "../../recoils/layout"
 
 
 const Top = () =>{
     const navigate = useNavigate();
     const location = useLocation();
+    const textWhiteArea = ['/']
     const gnbTopRef = useRef<HTMLDivElement>(null);
     const [scrollY,setScrollY] = useRecoilState(ShopLayoutScrollY);
+    const [headerTextColor,setHeaderTextColor] = useRecoilState(ShopHeaderTextColor);
     const display = useRecoilValue(ShopLayoutGNBTopDisplay);
     const TopMenuEvent = () => {
         setScrollY(window.scrollY);
@@ -21,11 +23,19 @@ const Top = () =>{
             gnbTopRef.current.classList.remove("floating-menu")
         }
     }
-
+   
     useEffect(()=>{
         window.scrollY = scrollY;
     },[scrollY])
 
+    
+    textWhiteArea.some(path => {
+        if(location.pathname === "/"){
+        }else{
+            scrollTo(0,0);
+            setHeaderTextColor("black")
+        }
+    })
     useEffect(()=>{
         window.addEventListener('scroll',TopMenuEvent);
         return ()=>window.removeEventListener("scroll",TopMenuEvent);
@@ -38,10 +48,18 @@ const Top = () =>{
         }
     },[display])
 
+
+/*
+            <li className="top__searchArea"><input type="text"/><button><FontAwesomeIcon icon={faMagnifyingGlass}/></button></li>
+
+*/
     return (<div className="gnb top" ref={gnbTopRef}>
         <ul>
-            <li className="top__logo">쇼핑몰</li>
-            <li className="top__searchArea"><input type="text"/><button><FontAwesomeIcon icon={faMagnifyingGlass}/></button></li>
+            <li className="top__logo">
+                <Link to="/" style={{color:"black",textDecoration:"none"}}>
+                    <small className={headerTextColor}>THE</small><h2 className={headerTextColor}>YOUNGSUN</h2>
+                </Link>
+            </li>
         </ul>
         {location.pathname !== "/" && <button className="goback" onClick={()=>navigate(-1)}><FontAwesomeIcon icon={faArrowLeft}/></button>}
     </div>)

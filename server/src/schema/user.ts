@@ -2,17 +2,24 @@ import { gql } from 'apollo-server-express'
 
 const userSchema = gql`
     type User{
-        id:String!
+        userid:String!
         password:String!
+        token:String
+    }
+    type UserLogut{
+        userid:String!
+        isDone:Boolean!
     }
     extend type Query{
-        users:[User!]
-        user(id:String!,password:String!):User
+        users(userid:String):[User!]
+        user(userid:String!,password:String!):User
     }
     extend type Mutation{
-        addUser(id:String!, password:String!):User
-        updateUser(id:String!, password:String!):User
-        deleteUser(id:String!, password:String!):User
+        loginUser(userid:String!, password:String!):User
+        logoutUser(userid:String!):UserLogut
+        addUser(userid:String!, password:String!):User
+        updateUser(userid:String!, password:String!):User
+        deleteUser(userid:String!, password:String!):User
     }
 `
 export default userSchema;

@@ -10,6 +10,9 @@ const DynamicCartIndex = React.lazy(() => import('./pages/cart/index'));
 const DynamicTextIndex = React.lazy(() =>import('./pages/test/index'));
 const DynamicPaymentIndex = React.lazy(() =>import('./pages/payment/index'));
 const DynamicAdminIndex = React.lazy(()=>import('./pages/admin/index'));
+const DynamicUserIndex = React.lazy(()=>import('./pages/user/index'));
+const DynamicUserJoinIndex = React.lazy(()=>import('./pages/user/join'));
+const DynamicUserLogoutIndex = React.lazy(()=>import('./pages/user/logout'));
 
 
 
@@ -22,6 +25,9 @@ export const routes = [
       { path: '/products', element: <DynamicProductIndex />, index: true},
       { path: '/products/:id', element: <DynamicProductId />, },
       { path: '/cart', element: <DynamicCartIndex/>, index:true},
+      { path: '/login', element: <DynamicUserIndex/>, index:true},
+      { path: '/logout', element: <DynamicUserLogoutIndex/>, index:true},
+      { path: '/join', element: <DynamicUserJoinIndex/>, index:true},
       { path: '/test', element: <DynamicTextIndex/>, index:true},
       { path: '/payment', element: <DynamicPaymentIndex/>, index:true},
       { path: '/admin', element: <DynamicAdminIndex/>, index:true},

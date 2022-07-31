@@ -3,24 +3,34 @@ import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import { DBField, writeDB } from "../dbController";
 import { Cart, Product, Resolver } from "./types";
+import { AuthenticationError } from 'apollo-server-express';
 const setJSON = (data:Cart) => writeDB(DBField.CART, data);
 const cartResolver:Resolver = {
     Query : {
-        cart:async (parent,args)=>{
-
+        cart:async (parent,{id,userid})=>{
+            if(!userid) throw new AuthenticationError("NoAuth");
+            if(userid === "nouser")  throw new AuthenticationError("NoAuth");
             const cart = await collection(db,'cart');
-            const snapshot = await getDocs(cart);
+            const snapshot = await getDocs(query(cart, where('userid','==',userid)));
             return snapshot.docs.map(doc => ({id:doc.id, ...doc.data()}));
         }
     },
     Mutation:{
-        addCart:async (parent,{id})=>{
+        getUserCart:async(parent,{userid})=>{
+            if(userid === "nouser") throw new AuthenticationError("NoAuth");
+
+            const cart = await collection(db,'cart');
+            const snapshot = await getDocs(query(cart, where('userid','==',userid)));
+            return snapshot.docs.map(doc => ({id:doc.id, ...doc.data()}));
+        },
+        addCart:async (parent,{id,userid})=>{
             if(!id) throw Error('상품 ID가 없다!');
+            if(userid === "nouser") return [];
 
             const productRef = doc(db,'products',id);
             const cartCollection = collection(db,'cart');
             const exist = (await getDocs(
-                query(cartCollection, where('product','==',productRef))
+                query(cartCollection, where('product','==',productRef), where('userid','==',userid))
             )).docs[0];
 
             if(exist){
@@ -32,20 +42,18 @@ const cartResolver:Resolver = {
             }else{
                 await addDoc(cartCollection,{
                     amount:1,
-                    product:productRef
+                    product:productRef,
+                    userid
                 })
             }
             const snapshot = (await getDocs(
-                query(cartCollection, where('product','==',productRef))
+                query(cartCollection, where('product','==',productRef), where('userid','==',userid))
             )).docs[0];
-            console.log({
-                product:productRef,
-                id:snapshot.id
-            })
             return {
                 product:productRef,
                 id:snapshot.id,
-                amount:snapshot.data().amount
+                amount:snapshot.data().amount,
+                userid
             }
         },
         updateCart:async (parent,{id,amount})=>{

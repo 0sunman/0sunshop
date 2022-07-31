@@ -4,9 +4,13 @@
 @import "./cart.scss";
 @import "./willpay.scss";
 @import "./orderlist.scss";
-
+@import "./userpage.scss";
+@import "./product.scss";
+@import "./home.scss";
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" );
+
 html{font-family: 'Noto Sans KR', sans-serif;}
 body{margin-bottom:100px;}
 #root {}
-#root > div:nth-child(2){width:95%; margin:0 auto; padding:10px; background-color: #fff;}
+#root > div:nth-child(2){width:95%; margin:0 auto; padding:10px; background-color: transparent;}

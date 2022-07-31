@@ -1,37 +1,66 @@
 import { Resolver, Users } from "./types";
 import {v4 as uuid} from 'uuid';
 import { DBField, writeDB } from "../dbController";
+import { collection, doc, getDocs, where,query, addDoc, getDoc } from "firebase/firestore";
+import {db} from "../firebase"
+import { idText } from "typescript";
+import { generateAccessToken } from "../util/jwt";
+import { pushUser, removeUser } from '../var/users';
+import { Token } from "graphql";
 
 
 const setJSON = (data:Users) => writeDB(DBField.USER, data);
 
 const userResolver:Resolver = {
     Query:{
-       users:(parent,args,{db})=>db.users,
-       user:(parent,{id,password},{db})=>db.users.filter(user=>(user.id===id && user.password===password))[0],
+       users: async ()=>{
+        const user = await collection(db,"user");
+        const snapshot = await getDocs(user);
+        return snapshot.docs.map(doc=>({...doc.data()}))
+       },
+       user: async (parent,{userid,password})=>{
+        const user = await collection(db,"user");
+        const snapshot = await getDocs(query(user,where("userid","==",userid),where("password","==",password)))
+        console.log(snapshot.docs.map(doc=>({...doc.data()})));
+        return snapshot.docs.map(doc=>({...doc.data()}))[0]
+       },
 
     },
     Mutation:{
-       addUser:(parent,{id,password},{db})=>{
-        db.users = [...db.users, {id,password}];
-        setJSON(db.users);
-        return {id,password}
+        loginUser:async (parent,{userid,password})=>{
+            const user = await collection(db,"user");
+            const snapshot = await getDocs(query(user,where("userid","==",userid),where("password","==",password)))
+            const jwtresult = generateAccessToken(userid);
+            const result = snapshot.docs.map(doc=>({...doc.data()}))
+            if(result.length === 0) return {state:"Fail to login."}
+            pushUser(userid,jwtresult)
+            return {...result[0],token:jwtresult};
+       },
+       logoutUser:async (parent,{userid})=>{
+            removeUser(userid);
+            return {userid,isDone:true};
+        },
+        addUser:async (parent,{userid,password})=>{
+            const newUser = {
+                userid,
+                password,
+            }
+            const jwtresult = generateAccessToken(userid);
+            const result = await addDoc(collection(db,'user'), newUser);
+            const snapshot = await getDoc(result);
+            console.log(snapshot.data())
+            pushUser(userid,jwtresult)
+            return {
+                ...snapshot.data(),
+                id:snapshot.id,
+                token:jwtresult
+            }
        },
        updateUser:(parent,{id,password},{db})=>{
-        db.users = db.users.map(user => {
-            if(user.id === id){
-                user.id = id;
-                user.password = password
-            }
-            return user;
-        })
-        setJSON(db.users)
-        return {id,password}
-       },
+        /* TODO */
+    },
        deleteUser:(parent,{id,password},{db})=>{
-        db.users = db.users.filter(user => user.id !== id)
-        setJSON(db.users)
-        return {id,password}
+        /* TODO */
        },
     }
 }

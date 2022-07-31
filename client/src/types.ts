@@ -4,6 +4,11 @@ export type Rating ={
 }
 
 
+export interface User{
+    userid:string,
+    password:string
+}
+
 export interface ProductCustom{
     id:string,
     imageUrl:string,

@@ -29,9 +29,11 @@ export const getQueryClient = (() => {
 const BASE_URL = import.meta.env.VITE_SERVER_URL as string
 console.log(BASE_URL);
 
+const token = () => window.localStorage.getItem('token');
 export const graphqlFetcher = async(query:RequestDocument, variables={})=>request(BASE_URL + "/graphql", query, variables,{
   'Content-Type':'application/json',
-  'Access-Control-Allow-Origin':BASE_URL
+  'Access-Control-Allow-Origin':BASE_URL,
+  'Authorization':`Bearer ${token() ? token() : "No"}`
 }); // query => GraphQL이 들어감.
 
 export const QueryKeys = {

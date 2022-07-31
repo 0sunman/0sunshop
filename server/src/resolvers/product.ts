@@ -27,6 +27,7 @@ const productResolver:Resolver = {
                 ...queryOptions,
                 limit(PAGE_SIZE)
             )
+            
             const snapshot = await getDocs(q);
             return snapshot.docs.map(doc => ({id:doc.id, ...doc.data()}));
         },

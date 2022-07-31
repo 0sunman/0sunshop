@@ -1,8 +1,24 @@
 import { gql } from "graphql-tag";
 
+export const GET_USER_CART = gql`
+    mutation GetUserCart($userid: String!) {
+    getUserCart(userid: $userid) {
+        id
+        amount
+        product {
+        id
+        imageUrl
+        title
+        price
+        description
+        }
+    }
+    }
+`
+
 export const GET_CART = gql`
-    query GET_CART{
-        cart{
+    query GET_CART($userid:String!){
+        cart(userid:$userid){
                 id
                 amount
                 product{
@@ -13,6 +29,7 @@ export const GET_CART = gql`
                     description
                     createdAt
                 }
+                userid
 
         }
 
@@ -20,8 +37,8 @@ export const GET_CART = gql`
 `
 
 export const ADD_CART = gql`
-    mutation ADD_CART($id:ID!){
-        addCart(id:$id){
+    mutation ADD_CART($id:ID!, $userid:String!){
+        addCart(id:$id, userid:$userid){
             id
             amount
             product{
@@ -32,6 +49,7 @@ export const ADD_CART = gql`
                 description
                 createdAt
             }
+            userid
         }
 
     }

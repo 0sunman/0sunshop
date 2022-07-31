@@ -5,7 +5,7 @@ const ItemData = ({id, title, imageUrl, price}:Pick<ProductCustom, 'id'|'imageUr
     return (
         <div>
             <p><img  className="product-item__image" src={imageUrl}/></p>
-            <p><span  className="product-item__price">{splitPrice(price)}</span> 원</p>
+            <p style={{marginTop:"10px"}}><span  className="product-item__price">{splitPrice(price)}</span> 원</p>
         </div>
     )
 }

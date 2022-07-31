@@ -5,12 +5,14 @@ const cartSchema = gql`
         id:ID!
         amount:Int!
         product:Product!
+        userid:String
     }
     extend type Query{
-        cart:[CartItem!]
+        cart(userid:String!):[CartItem!]
     }
     extend type Mutation{
-        addCart(id:ID!):CartItem
+        getUserCart(userid:String!):[CartItem]
+        addCart(id:ID!, userid:String!):CartItem
         updateCart(id: ID!, amount:Int!):CartItem!
         deleteCart(id: ID!):ID!
         executePay(ids:[ID!]):[ID!]

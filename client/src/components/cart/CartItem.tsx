@@ -59,9 +59,14 @@ const CartItem = ({
             
         }
     })
-    const {refetch} = useQuery<CartDatas>("getCart",()=>graphqlFetcher(GET_CART),{staleTime:0, cacheTime:0,
+    const {refetch} = useQuery<CartDatas>("getCart",()=>graphqlFetcher(GET_CART,{userid:window.localStorage.getItem("userid")}),{staleTime:0, cacheTime:0,
         onSuccess:({cart})=>{
+            console.log(cart);
             setCartLength(cart.length);
+        },
+        onError:(err)=>{
+            debugger;
+            console.log(err)
         }
     });
 

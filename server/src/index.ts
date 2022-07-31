@@ -1,9 +1,12 @@
 import * as express from 'express'
-import { ApolloServer } from 'apollo-server-express'
+import { ApolloServer, AuthenticationError } from 'apollo-server-express'
 import schema from './schema';
 import resolvers from './resolvers';
 import { DBField, readDB } from './dbController';
 import env from './envLoader';
+import { collection, getDocs, where, query } from 'firebase/firestore';
+import { db } from './firebase';
+import { getUser } from './var/users';
 
 //{typeDefs, resolvers}
 (async()=>{
@@ -12,6 +15,15 @@ import env from './envLoader';
     const server = new ApolloServer({
         typeDefs:schema,
         resolvers,
+        context:async ({req})=>{
+            if (!req.headers.authorization) return ;
+//            throw new AuthenticationError("missing token");
+            const token = req.headers.authorization.substr(7);
+            console.log(getUser(token));
+            return {token};
+//            if (!user) throw new AuthenticationError("invalid token");
+//            return { user };
+        }
         /*
         context:{
             db:{

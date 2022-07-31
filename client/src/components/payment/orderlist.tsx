@@ -23,7 +23,6 @@ const OrderList = ({
     })
     return (
         <div className="orderList">
-            <h2>결제 예정 내역</h2>
             <div className="orderList___record">
                 <div>
                     <span>상품명</span>
@@ -42,7 +41,7 @@ const OrderList = ({
             </div>
             <div className="orderControl">
                 <div className="orderControl__components">
-                    <div>총 예상 결제액 : {totalPrice}</div>
+                    <div>총 예상 결제액 : {splitPrice(totalPrice)}원</div>
                     <div><button onClick={handleSubmit}>결제하기</button></div>                
                 </div>
             </div>

@@ -27,14 +27,14 @@ const WillPay = ({
                 return (
             <div >
                 <ItemData imageUrl={imageUrl} price={price} title={title} key={id}/>
-                <p>수량 : {amount}</p>
-                <p>가격 : {splitPrice(price * amount)}원</p>
+                <p style={{marginTop:"10px"}}>수량 : {amount}</p>
+                <p style={{marginTop:"5px"}}>가격 : {splitPrice(price * amount)}원</p>
                 {!createdAt && "삭제된 상품입니다."}
             </div>)})}
 
             </div>
             <div className="willPay__control">
-                <div>총 예상 결제액 : {totalPrice}</div>
+                <div>총 예상 결제액 : {splitPrice(totalPrice)} 원</div>
                 <div><button onClick={handleSubmit}>결제하기</button></div>                
             </div>
         </div>

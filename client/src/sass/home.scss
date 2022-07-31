@@ -1,0 +1,52 @@
+.home{
+    .section{
+        display: none;
+        position: fixed;
+        top:0px;
+        width: 100%;
+        height: 100%;
+        background-size: cover !important;
+        background-position-x: 50% !important;
+        z-index: -1;
+    }
+
+    &__section0.section{
+        background: url('https://image.thehyundai.com/static/image/sect/hnm/cpnt/hnmmain1997051020220719104859.jpg');
+    }
+
+    &__section1.section{
+        background: url('https://image.thehyundai.com/static/5/0/7/80/A0/hnm40A0807058_01_0709075_001_004_848.jpg');
+        
+    }
+}
+.home.section-0 .home__section0{
+    display: block;
+}
+.home.section-1 .home__section1{
+    display: block;
+}
+
+
+@keyframes flow {
+    0% {
+      background-position: 0 0%;
+    }
+  
+    50% {
+      background-position: 100% 100%;
+    }
+    100% {
+      background-position: 0 0%;
+    }
+  }
+  
+  .scroll-under-icon {
+    font-size: 30px;
+    transform: translateX(-50%);
+    animation: flow 1s ease-in-out infinite;
+    background: linear-gradient(30deg, transparent, #ffffff);
+    opacity: .8;
+    background-size: 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }

@@ -5,9 +5,10 @@ import { CheckedCartState } from "../../recoils/cart";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import WillPay from "../willPay";
 import { useNavigate } from "react-router-dom";
-import { ShopLayoutScrollY } from "../../recoils/layout";
+import { ShopisLoading, ShopLayoutScrollY } from "../../recoils/layout";
 
 const CartList = (items:Cart[])=>{
+    const [isLoadingSite,setIsLoading] = useRecoilState(ShopisLoading);
     const formRef = useRef<HTMLFormElement>(null);
     const [checkedCart, setCheckedCart] = useRecoilState(CheckedCartState);
     const [scrollY,setScrollY] = useRecoilState(ShopLayoutScrollY);
@@ -74,7 +75,16 @@ const CartList = (items:Cart[])=>{
             alert('결제대상이 없습니다.')
         }
     }
-    return (<div className="cartPage">
+
+    useEffect(()=>{
+        if(isLoadingSite){
+            setIsLoading(true)
+        }else{
+            setIsLoading(false)
+        }
+    },[isLoadingSite])
+    
+    return (<div className="cartPage" style={{marginBottom:"500px"}}>
             <form ref={formRef} onChange={onChange}>
             <p><input type="checkbox" className='select-all' name='select-all'></input></p>
                 <ul className="products">

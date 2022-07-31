@@ -7,6 +7,7 @@ import { useQuery } from 'react-query';
 import { CartDatas } from '../../types';
 import { graphqlFetcher } from '../../queryClient';
 import { GET_CART } from '../../graphql/carts';
+import { UserLoginState } from '../../recoils/user';
 
 const Bottom = () => {
     const navigate = useNavigate();
@@ -14,9 +15,10 @@ const Bottom = () => {
 
     const [display,setDisplay] = useRecoilState(ShopLayoutGNBBottomDisplay);
     const [scrollY,setScrollY] = useRecoilState(ShopLayoutScrollY);
+    const [isLogin,setIsLogin] = useRecoilState(UserLoginState);
     const [cartLength,setCartLength] = useRecoilState(CartLength);
     const gnbBottomRef = useRef<HTMLDivElement>(null);
-    const bannedArea = ['cart','payment']
+    const bannedArea = ['cart','payment','products/']
 
     
     useEffect(()=>{
@@ -44,16 +46,34 @@ const Bottom = () => {
         console.log(cartLength);
     },[cartLength])
     useEffect(()=>{
-    })
+        console.log("isLogin",isLogin)
+        console.log("DONE")
+    },[isLogin])
 
 
     return (
             <div className="gnb bottom" ref={gnbBottomRef}>
                 <ul>
-                    <li><Link to='/'>홈</Link></li>
-                    <li><Link to='/products'>상품목록</Link></li>
-                    <li><Link to='/admin'>어드민</Link></li>
-                    <li><Link to='/cart'>장바구니</Link><br/>({cartLength ? cartLength : 0})</li>
+                    <li>
+                        <Link to='/'><span className="material-symbols-outlined">home</span></Link>
+                        <span className='menu-submessage'>홈</span>
+                    </li>
+                    <li>
+                        <Link to='/products'>
+                            <span className="material-symbols-outlined">category</span>
+                        </Link>
+                        <span className='menu-submessage'>상품목록</span></li>
+                    <li>
+                        {isLogin ?  <Link to='/logout' style={{textDecoration:"none"}}>
+                                        <span className="material-symbols-outlined">directions_run</span>
+                                        <span className='menu-submessage'>로그아웃</span>                    
+                                    </Link>:<Link to='/login' style={{textDecoration:"none"}}>
+                                        <span className="material-symbols-outlined">face</span>
+                                        <span className='menu-submessage'>로그인</span>
+                                    </Link>}
+                        </li>
+                    <li><Link to='/cart'><span className="material-symbols-outlined">shopping_bag</span></Link>
+                        <span className='menu-submessage'>장바구니({cartLength ? cartLength : 0})</span></li>
                 </ul>
             </div>
         );
