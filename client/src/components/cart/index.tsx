@@ -76,14 +76,6 @@ const CartList = (items:Cart[])=>{
         }
     }
 
-    useEffect(()=>{
-        if(isLoadingSite){
-            setIsLoading(true)
-        }else{
-            setIsLoading(false)
-        }
-    },[isLoadingSite])
-    
     return (<div className="cartPage" style={{marginBottom:"500px"}}>
             <form ref={formRef} onChange={onChange}>
             <p><input type="checkbox" className='select-all' name='select-all'></input></p>

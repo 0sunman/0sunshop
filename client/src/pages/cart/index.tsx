@@ -15,6 +15,7 @@ const CartPage = () => {
     const [isLoadingSite,setIsLoading] = useRecoilState(ShopisLoading);
     const [isLogin,setIsLogin] = useRecoilState(UserLoginState);
     if(!isLogin){
+        setIsLoading(false);
         navigate("/login")
     }
 
