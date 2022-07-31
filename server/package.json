@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@types/jsonwebtoken": "^8.5.8",
     "apollo-server": "^3.9.0",
     "apollo-server-express": "^3.9.0",
     "bcrypt": "^5.0.1",
