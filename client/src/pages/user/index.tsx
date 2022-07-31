@@ -6,6 +6,7 @@ import { GET_CART } from "../../graphql/carts";
 import { GET_USER, LOGIN_USER } from "../../graphql/users";
 import { graphqlFetcher, QueryKeys } from "../../queryClient";
 import { CartLength } from "../../recoils/cart";
+import { ShopisLoading } from "../../recoils/layout";
 import { UserLoginState } from "../../recoils/user";
 import { CartDatas, User } from "../../types";
 import arrToObj from "../../utill/arrToObj";
@@ -13,6 +14,7 @@ import arrToObj from "../../utill/arrToObj";
 const Userpage = () => {
     const navigate = useNavigate();
     const [cartLength, setCartLength] = useRecoilState(CartLength);
+    const [isLoadingSite,setIsLoading] = useRecoilState(ShopisLoading);
     const [isLogin,setIsLogin] = useRecoilState(UserLoginState);
 
     if(isLogin){
@@ -28,6 +30,7 @@ const Userpage = () => {
         userid, password
     }),{onSuccess:({loginUser})=>{
         const {userid, token} = loginUser;
+        setIsLoading(false);
         window.localStorage.setItem("userid",userid);
         if(token){
             window.localStorage.setItem("token",token);
@@ -38,6 +41,7 @@ const Userpage = () => {
     }}) 
     const doLogin = (e:SyntheticEvent)=>{
         e.preventDefault();
+        setIsLoading(true);
         const formData = new FormData(e.target as HTMLFormElement);
         const {userid,password} =(arrToObj([...formData]))
         login({userid,password})

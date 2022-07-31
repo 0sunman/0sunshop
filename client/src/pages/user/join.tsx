@@ -6,6 +6,7 @@ import { GET_CART } from "../../graphql/carts";
 import { ADD_USER, GET_USER, LOGIN_USER } from "../../graphql/users";
 import { graphqlFetcher, QueryKeys } from "../../queryClient";
 import { CartLength } from "../../recoils/cart";
+import { ShopisLoading } from "../../recoils/layout";
 import { UserLoginState } from "../../recoils/user";
 import { CartDatas, User } from "../../types";
 import arrToObj from "../../utill/arrToObj";
@@ -15,6 +16,7 @@ const Userpage = () => {
     const [disabledButton, setDisabledButton] = useState(true);
     const [cartLength, setCartLength] = useRecoilState(CartLength);
     const [isLogin,setIsLogin] = useRecoilState(UserLoginState);
+    const [isLoadingSite,setIsLoading] = useRecoilState(ShopisLoading);
     const [userid,setUserId]=useState("");
     const [password,setPassword]=useState("");
     const [passwordCheck,setPasswordCheck]=useState("");
@@ -32,6 +34,7 @@ const Userpage = () => {
         userid, password
     }),{onSuccess:({addUser})=>{
         const {userid, token} = addUser;
+        setIsLoading(false)
         window.localStorage.setItem("userid",userid);
         if(token){
             window.localStorage.setItem("token",token);
@@ -42,6 +45,7 @@ const Userpage = () => {
     }}) 
     const doJoin = (e:SyntheticEvent)=>{
         e.preventDefault();
+        setIsLoading(true)
         const formData = new FormData(e.target as HTMLFormElement);
         const {userid,password} =(arrToObj([...formData]))
         console.log(userid,password)
