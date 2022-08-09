@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@types/jsonwebtoken": "^8.5.8",
     "@types/pg": "^8.6.5",
     "apollo-server": "^3.9.0",
     "apollo-server-express": "^3.9.0",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^8.5.8",
+    "jsonwebtoken": "^8.5.1",
     "@types/node": "^18.0.0",
     "@types/uuid": "^8.3.4",
     "nodemon": "^2.0.18"
