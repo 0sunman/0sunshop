@@ -1,5 +1,4 @@
-`declare module 'jsonwebtoken';`
-import { sign, verify } from 'jsonwebtoken';
+const { sign, verify } = require('jsonwebtoken');
 
 export function generateAccessToken(userId : string) {
   return sign({ userId }, process.env.JWT_ACCESS_TOKEN_SECRET!, { expiresIn: '15m' });
