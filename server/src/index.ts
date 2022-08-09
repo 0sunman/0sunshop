@@ -24,7 +24,7 @@ import {Knex, knex} from 'knex';
         resolvers,
         context:async ({req})=>{
             const result = {"data":pg}
-            if (!req.headers.authorization) return {...result};
+            if (!req.headers.authorization) return;
             const token = req.headers.authorization.substr(7);
             console.log(getUser(token));
             return {...result, token};
@@ -33,7 +33,32 @@ import {Knex, knex} from 'knex';
 
 
     await server.start();
-    console.log(clientUrl)
+    console.log(
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    )
     server.applyMiddleware({
         app,
         path:'/graphql',
