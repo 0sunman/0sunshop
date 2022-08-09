@@ -27,7 +27,7 @@ import {Knex, knex} from 'knex';
             if (!req.headers.authorization) return;
             const token = req.headers.authorization.substr(7);
             console.log(getUser(token));
-            return {...result, token};
+            return {token};
         }
     });
 
