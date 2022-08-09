@@ -2,6 +2,7 @@ import {gql}from 'apollo-server-express';
 import productSchema from './product';
 import cartSchema from './cart';
 import userSchema from './user';
+import contentSchema from './content';
 
 const linkSchema = gql `
     type Query{
@@ -12,4 +13,4 @@ const linkSchema = gql `
     }
 `
 
-export default [linkSchema, productSchema, cartSchema,userSchema]
+export default [linkSchema, productSchema, cartSchema,userSchema, contentSchema]

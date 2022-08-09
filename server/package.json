@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@prisma/client": "^4.1.1",
     "@types/jsonwebtoken": "^8.5.8",
+    "@types/pg": "^8.6.5",
     "apollo-server": "^3.9.0",
     "apollo-server-express": "^3.9.0",
     "bcrypt": "^5.0.1",
@@ -14,8 +16,12 @@
     "firebase": "^9.9.0",
     "graphql": "^16.5.0",
     "jsonwebtoken": "^8.5.1",
+    "knex": "^2.2.0",
     "lodash": "^4.17.21",
+    "pg": "^8.7.3",
+    "prisma": "^4.1.1",
     "react-loading": "^2.0.3",
+    "server": "^1.0.37",
     "ts-node": "^10.8.2",
     "typescript": "^4.7.4",
     "uuid": "^8.3.2"

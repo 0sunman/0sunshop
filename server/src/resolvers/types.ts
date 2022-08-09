@@ -9,7 +9,8 @@ export type Resolver ={
                     cart:Cart
                     products:Products
                     users:Users
-                }
+                },
+                data:any
             },
             info:any
         )=>any
