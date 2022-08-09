@@ -13,7 +13,10 @@ import {Knex, knex} from 'knex';
     const app = express();
     const config:Knex.Config = {
         client:'pg',
-        connection:env.DATABASE_URL
+        connection:{
+            connectionString:env.DATABASE_URL,
+            ssl:true
+        }
     }
 
     const pg = knex(config);
