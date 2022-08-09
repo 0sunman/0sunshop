@@ -9,6 +9,7 @@ import {Knex, knex} from 'knex';
 (async()=>{
     const clientUrl = env.CLIENT_URL as string;
     const port = env.PORT || 8000
+    
     const app = express();
     const config:Knex.Config = {
         client:'pg',
@@ -33,37 +34,12 @@ import {Knex, knex} from 'knex';
 
 
     await server.start();
-    console.log(
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-    )
+    console.log(clientUrl)
     server.applyMiddleware({
         app,
         path:'/graphql',
         cors:{
-            origin:[clientUrl, 'https://studio.apollographql.com'],
+            origin:[clientUrl, "https://shop.0sun.net", "https://hdeptcomponenttool.vercel.app", 'https://studio.apollographql.com'],
             credentials:true
         }
     })
