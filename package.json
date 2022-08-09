@@ -1,15 +1,18 @@
 {
-    "name":"0sun-shop",
-    "version":"1.0.0",
-    "main":"index.js",
+    "name": "0sun-shop",
+    "version": "1.0.0",
+    "main": "index.js",
     "repository": "",
-    "author":"0sun",
+    "author": "0sun",
     "license": "MIT",
-    "private":true,
-    "workspaces":["client","server"],
-    "scripts":{
-        "client":"yarn workspace client dev",
-        "server":"yarn workspace server dev",
-        "start":"cd server && npm run serve"
+    "private": true,
+    "workspaces": [
+        "client",
+        "server"
+    ],
+    "scripts": {
+        "client": "yarn workspace client dev",
+        "server": "yarn workspace server dev",
+        "start": "cd server && npm run serve"
     }
 }
