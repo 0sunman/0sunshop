@@ -13,8 +13,7 @@ import {Knex, knex} from 'knex';
     const config:Knex.Config = {
         client:'pg',
         connection:{
-            connectionString:env.POSTGRESQLDB_URL,
-            ssl: { rejectUnauthorized: false }
+            connectionString:env.DATABASE_URL
         }
     }
 
