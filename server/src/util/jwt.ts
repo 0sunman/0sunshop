@@ -1,3 +1,4 @@
+`declare module 'jsonwebtoken';`
 import { sign, verify } from 'jsonwebtoken';
 
 export function generateAccessToken(userId : string) {
