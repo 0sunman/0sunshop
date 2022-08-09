@@ -1,9 +1,9 @@
 import { sign, verify } from 'jsonwebtoken';
 
-export function generateAccessToken(userId : any) {
+export function generateAccessToken(userId : string) {
   return sign({ userId }, process.env.JWT_ACCESS_TOKEN_SECRET!, { expiresIn: '15m' });
 }
 
-export function verifyAccessToken(token: any) {
+export function verifyAccessToken(token: string) {
   return verify(token, process.env.JWT_ACCESS_TOKEN_SECRET!);
 }
