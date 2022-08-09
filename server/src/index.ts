@@ -18,7 +18,7 @@ import { getUser } from './var/users';
     // }
     // const result = {"data":pg}
 
-    const pg = knex(config);
+//    const pg = knex(config);
     const server = new ApolloServer({
         typeDefs:schema,
         resolvers,
