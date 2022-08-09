@@ -13,7 +13,7 @@ import {Knex, knex} from 'knex';
     const app = express();
     const config:Knex.Config = {
         client:'pg',
-        connection:env.POSTGRESQLDB_URL
+        connection:env.DATABASE_URL
     }
 
     const pg = knex(config);
