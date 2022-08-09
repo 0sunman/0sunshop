@@ -4,29 +4,30 @@ import schema from './schema';
 import resolvers from './resolvers';
 import env from './envLoader';
 import { getUser } from './var/users';
-// import {Knex, knex} from 'knex';
+import {Knex, knex} from 'knex';
 
 (async()=>{
     const clientUrl = env.CLIENT_URL as string;
     const port = env.PORT || 8000
     const app = express();
-    // const config:Knex.Config = {
-    //     client:'pg',
-    //     connection:{
-    //         connectionString:env.DATABASE_URL
-    //     }
-    // }
-    // const result = {"data":pg}
+    const config:Knex.Config = {
+        client:'pg',
+        connection:{
+            connectionString:env.POSTGRESQLDB_URL,
+            ssl: { rejectUnauthorized: false }
+        }
+    }
 
-//    const pg = knex(config);
+    const pg = knex(config);
     const server = new ApolloServer({
         typeDefs:schema,
         resolvers,
         context:async ({req})=>{
-            if (!req.headers.authorization) return;
+            const result = {"data":pg}
+            if (!req.headers.authorization) return {...result};
             const token = req.headers.authorization.substr(7);
             console.log(getUser(token));
-            return {token};
+            return {...result, token};
         }
     });
 
