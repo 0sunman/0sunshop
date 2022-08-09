@@ -23,9 +23,9 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^8.5.8",
     "@types/node": "^18.0.0",
     "@types/uuid": "^8.3.4",
-    "jsonwebtoken": "^8.5.1",
     "nodemon": "^2.0.18"
   },
   "scripts": {
