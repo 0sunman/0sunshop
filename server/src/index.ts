@@ -39,7 +39,7 @@ import {Knex, knex} from 'knex';
         app,
         path:'/graphql',
         cors:{
-            origin:[clientUrl, "https://shop.0sun.net", "https://hdeptcomponenttool.vercel.app", "https://hdeptcomponenttool.vercel.app/", "https://page.0sun.net", 'https://studio.apollographql.com'],
+            origin:[clientUrl, "https://shop.0sun.net","https://the.0sun.net","https://ts.0sun.net","https://hcomponent.vercel.app","https://hdeptcomponenttool.vercel.app", "https://hdeptcomponenttool.vercel.app/", "https://page.0sun.net", 'https://studio.apollographql.com'],
             credentials:true
         }
     })
