@@ -9,7 +9,7 @@ import {Knex, knex} from 'knex';
 (async()=>{
     const clientUrl = env.CLIENT_URL as string;
     const port = env.PORT || 8000
-    
+    const app = express();
     const config:Knex.Config = {
         client:'pg',
         connection:{
@@ -32,7 +32,6 @@ import {Knex, knex} from 'knex';
     });
 
 
-    const app = express();
     await server.start();
     console.log(clientUrl)
     server.applyMiddleware({
