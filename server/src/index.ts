@@ -12,6 +12,7 @@ import axios from 'axios';
     const port = env.PORT || 8000
     const imageServerURL = env.CLOUDFLARE_IMAGE_SERVER as string;    
     const imageServerToken = env.CLOUDFLARE_IMAGE_TOKEN as string;
+    const CROSS_DOMAIN_LIST = [clientUrl, "https://shop.0sun.net","http://localhost:3000","http://localhost","https://localhost:3000","https://localhost","https://10.108.70.52:3000/","https://10.108.70.52","https://10.108.70.52:3000/","https://10.108.70.52" ,"https://the.0sun.net","https://ts.0sun.net","https://hcomponent.vercel.app","https://hdeptcomponenttool.vercel.app", "https://hdeptcomponenttool.vercel.app/", "https://page.0sun.net", 'https://studio.apollographql.com'];
     
     const app = express();
     const config:Knex.Config = {
@@ -42,13 +43,22 @@ import axios from 'axios';
         app,
         path:'/graphql',
         cors:{
-            origin:[clientUrl, "https://shop.0sun.net","http://localhost:3000","http://localhost","https://localhost:3000","https://localhost","https://10.108.70.52:3000/","https://10.108.70.52","https://10.108.70.52:3000/","https://10.108.70.52" ,"https://the.0sun.net","https://ts.0sun.net","https://hcomponent.vercel.app","https://hdeptcomponenttool.vercel.app", "https://hdeptcomponenttool.vercel.app/", "https://page.0sun.net", 'https://studio.apollographql.com'],
+            origin:CROSS_DOMAIN_LIST,
             credentials:true
         }
     })
     await app.listen({port});
-
-    console.log(`server listening on ${port}`)
+    app.use((req, res, next) => {
+        const origin = req.headers.origin as string;
+        if (CROSS_DOMAIN_LIST.includes(origin)) {
+             res.setHeader('Access-Control-Allow-Origin', origin);
+        }
+        //res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:8020');
+        res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
+        res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        res.header('Access-Control-Allow-Credentials', true);
+        return next();
+      });
     app.post("/uploadImage",async (req,res)=>{
         console.log("Image Upload");
         const imageResponse = await axios(imageServerURL,{
