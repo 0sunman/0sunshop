@@ -49,7 +49,7 @@ import axios from 'axios';
     await app.listen({port});
 
     console.log(`server listening on ${port}`)
-    app.get("",async (req,res)=>{
+    app.get("/uploadImage",async (req,res)=>{
         console.log("Image Upload");
         const imageResponse = await axios(imageServerURL,{
             method:"POST",
