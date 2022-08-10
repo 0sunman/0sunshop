@@ -5,10 +5,13 @@ import resolvers from './resolvers';
 import env from './envLoader';
 import { getUser } from './var/users';
 import {Knex, knex} from 'knex';
+import axios from 'axios';
 
 (async()=>{
     const clientUrl = env.CLIENT_URL as string;
     const port = env.PORT || 8000
+    const imageServerURL = env.CLOUDFLARE_IMAGE_SERVER as string;    
+    const imageServerToken = env.CLOUDFLARE_IMAGE_TOKEN as string;
     
     const app = express();
     const config:Knex.Config = {
@@ -46,7 +49,20 @@ import {Knex, knex} from 'knex';
     await app.listen({port});
 
     console.log(`server listening on ${port}`)
+    app.get("",async (req,res)=>{
+        console.log("Image Upload");
+        const imageResponse = await axios(imageServerURL,{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization": `Bearer ${imageServerToken}`
+            }
+        });
+        const {data:{result:{uploadURL}}} = imageResponse;
 
+        res.json({ok:true,uploadURL});
+        
+    })
 
 
 })()
