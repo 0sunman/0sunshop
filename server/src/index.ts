@@ -61,16 +61,22 @@ import axios from 'axios';
       });
     app.get("/api/uploadImage",async (req,res)=>{
         console.log("Image Upload");
-        const imageResponse = await axios(imageServerURL,{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json",
-                "Authorization": `Bearer ${imageServerToken}`
-            }
-        });
-        const {data:{result:{uploadURL}}} = imageResponse;
-
-        res.json({ok:true,uploadURL});
+        try{
+            const imageResponse = await axios(imageServerURL,{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json",
+                    "Authorization": `Bearer ${imageServerToken}`
+                }
+            });
+            const {data:{result:{uploadURL}}} = imageResponse;
+    
+            res.json({ok:true,uploadURL});    
+        }catch(e){
+            console.log(imageServerURL);
+            console.log(e);
+            res.json({ok:false});
+        }
         
     })
 
