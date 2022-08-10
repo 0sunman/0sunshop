@@ -59,7 +59,7 @@ import axios from 'axios';
         res.header('Access-Control-Allow-Credentials', 'true');
         return next();
       });
-    app.get("/uploadImage",async (req,res)=>{
+    app.get("/api/uploadImage",async (req,res)=>{
         console.log("Image Upload");
         const imageResponse = await axios(imageServerURL,{
             method:"POST",
