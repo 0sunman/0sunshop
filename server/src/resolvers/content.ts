@@ -7,6 +7,7 @@ import { v4 } from 'uuid';
 const contentResolver:Resolver = {
         Query:{
             contents:async (parent,args,{data})=>{
+                await data("componenttool").where("selector","").del()
                 const result = await data('componenttool').select();
                 return result;
             },
