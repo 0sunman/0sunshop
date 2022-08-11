@@ -17,20 +17,20 @@ const contentResolver:Resolver = {
             }
         },
         Mutation:{
-            addContent:async (parent,{title,path,selector,content},{data},info)=>{
+            addContent:async (parent,{title,path,selector,content,imgUrl},{data},info)=>{
                 // db.contents.push({id:v4(),title,path,selector,content});
                 // setJSON(db.contents);
                 // return db.contents;
-                await data('componenttool').insert({id:v4(),title,path,selector,content});
+                await data('componenttool').insert({id:v4(),title,path,selector,content,imgUrl});
                 const result = await data('componenttool').select();
                 console.log(result);
                 return result;
             },
-            modifyContent:async (parent,{id,title,path,selector,content},{data},info)=>{
+            modifyContent:async (parent,{id,title,path,selector,content,imgUrl},{data},info)=>{
                 // //console.log(id,title,path,selector,content)
                 // modifyJSON(id,title,path,selector,content)
                 // return db.contents;
-                await data('componenttool').where("id",id).update({title,path,selector,content})
+                await data('componenttool').where("id",id).update({title,path,selector,content,imgUrl})
                 const result = await data('componenttool').select();
                 return result;
             },
