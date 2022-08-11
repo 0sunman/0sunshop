@@ -8,9 +8,6 @@ const contentResolver:Resolver = {
         Query:{
             contents:async (parent,args,{data})=>{
 //                await data("componenttool").where("selector",null).del()
-                await data.schema.table("componenttool", (table:any) =>{
-                    table.string('imgUrl',300)
-                })
                 const result = await data('componenttool').select();
                 return result;
             },
