@@ -38,8 +38,6 @@ import axios from 'axios';
 
 
     await server.start();
-    console.log(clientUrl)
-    await pg("componenttool").where("selector","").del()
     server.applyMiddleware({
         app,
         path:'/graphql',
