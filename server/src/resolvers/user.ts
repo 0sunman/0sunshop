@@ -24,16 +24,17 @@ const userResolver:Resolver = {
         console.log(snapshot.docs.map(doc=>({...doc.data()})));
         return snapshot.docs.map(doc=>({...doc.data()}))[0]
        },
+       isLogin:async (parent,{userid,token})=>{
+        if(getUser(userid) === token){
+            return {userid,isLogin:true};
+        }else{
+            return {userid,isLogin:false};
+        }
+    }
 
     },
     Mutation:{
-        isLogin:async (parent,{userid,token})=>{
-            if(getUser(userid) === token){
-                return {userid,isLogin:true};
-            }else{
-                return {userid,isLogin:false};
-            }
-        },
+      
         loginUser:async (parent,{userid,password})=>{
             const user = await collection(db,"user");
             const snapshot = await getDocs(query(user,where("userid","==",userid),where("password","==",password)))
