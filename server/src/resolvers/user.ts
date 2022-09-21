@@ -5,7 +5,7 @@ import { collection, doc, getDocs, where,query, addDoc, getDoc } from "firebase/
 import {db} from "../firebase"
 import { idText } from "typescript";
 import { generateAccessToken } from "../util/jwt";
-import { pushUser, removeUser } from '../var/users';
+import { getUser, pushUser, removeUser } from '../var/users';
 import { Token } from "graphql";
 
 
@@ -27,6 +27,13 @@ const userResolver:Resolver = {
 
     },
     Mutation:{
+        isLogin:async (parent,{userid,token})=>{
+            if(getUser(userid) === token){
+                return {userid,isLogin:true};
+            }else{
+                return {userid,isLogin:false};
+            }
+        },
         loginUser:async (parent,{userid,password})=>{
             const user = await collection(db,"user");
             const snapshot = await getDocs(query(user,where("userid","==",userid),where("password","==",password)))
