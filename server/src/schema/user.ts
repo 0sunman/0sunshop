@@ -17,9 +17,9 @@ const userSchema = gql`
     extend type Query{
         users(userid:String):[User!]
         user(userid:String!,password:String!):User
-        isLogin(userid:String!, token:String!):UserConfirm
     }
     extend type Mutation{
+        isLogin(userid:String!, token:String!):UserConfirm
         loginUser(userid:String!, password:String!):User
         logoutUser(userid:String!):UserLogut
         addUser(userid:String!, password:String!):User
