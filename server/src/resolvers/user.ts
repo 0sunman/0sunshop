@@ -28,7 +28,7 @@ const userResolver:Resolver = {
     },
     Mutation:{
         isLogin:async (parent,{userid,token})=>{
-            if(getUser(userid) === token){
+            if(getUser(token) === userid){
                 return {userid,isLogin:true};
             }else{
                 return {userid,isLogin:false};

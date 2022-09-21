@@ -6,7 +6,7 @@ type User = {
 let userlist:User[] = [];
 
 export const getUsers = () => userlist;
-export const getUser = (token:string) => userlist.find(user => user.token === token);
+export const getUser = (token:string) => userlist.filter(user => user.token === token)[0];
 export const pushUser = (userid:string,token:string) => {
     removeUser(userid);
     userlist.push({userid,token})
