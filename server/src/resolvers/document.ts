@@ -4,7 +4,33 @@ import { v4 } from 'uuid';
 
 // const setJSON = (data:any) => writeDB(DBField.CONTENTS, data);
 // const modifyJSON = (id:string, title:string, path:string, selector:string, data:any) => modifyDB(DBField.CONTENTS, id, title, path,selector, data);
-const contentResolver:Resolver = {
+/*
+extend type Query{
+        documents:[Document]
+        document(id:Int!): [Document]
+        documentlike(title:String!): [Document]
+    }
+    extend type Mutation{
+        addDocument(
+            author:String,
+            content:String,
+            title:String,
+            imgUrl:String
+            selector:String
+            ):[Document]
+        modifyDocument(
+            author:String,
+            content:String,
+            title:String,
+            imgUrl:String
+            selector:String
+            ):[Document]
+        removeDocument(id:Int!):[Document]
+    }
+
+*/
+
+const documentResolver:Resolver = {
         Query:{
             contents:async (parent,args,{data})=>{
                 const result = await data('componenttool').select();
@@ -34,4 +60,4 @@ const contentResolver:Resolver = {
             }
         }
 }
-export default contentResolver
+export default documentResolver

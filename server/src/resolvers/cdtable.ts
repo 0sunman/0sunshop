@@ -4,7 +4,7 @@ import { v4 } from 'uuid';
 
 // const setJSON = (data:any) => writeDB(DBField.CONTENTS, data);
 // const modifyJSON = (id:string, title:string, path:string, selector:string, data:any) => modifyDB(DBField.CONTENTS, id, title, path,selector, data);
-const contentResolver:Resolver = {
+const cdRelationResolver:Resolver = {
         Query:{
             contents:async (parent,args,{data})=>{
                 const result = await data('componenttool').select();
@@ -34,4 +34,4 @@ const contentResolver:Resolver = {
             }
         }
 }
-export default contentResolver
+export default cdRelationResolver
