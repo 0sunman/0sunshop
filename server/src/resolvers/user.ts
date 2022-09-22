@@ -38,9 +38,9 @@ const userResolver:Resolver = {
             const user = await collection(db,"user");
             const snapshot = await getDocs(query(user,where("userid","==",userid),where("password","==",password)))
             const jwtresult = generateAccessToken(userid);
-            const result = snapshot.docs.map(doc=>({...doc.data()}))
+            const result:any = snapshot.docs.map(doc=>({...doc.data()}))
             if(result.length === 0) return {state:"Fail to login."}
-            pushUser(userid,jwtresult)
+            pushUser(userid,jwtresult,result.role);
             return {...result[0],token:jwtresult};
        },
        logoutUser:async (parent,{userid})=>{
@@ -51,12 +51,13 @@ const userResolver:Resolver = {
             const newUser = {
                 userid,
                 password,
+                role:"person"
             }
             const jwtresult = generateAccessToken(userid);
             const result = await addDoc(collection(db,'user'), newUser);
             const snapshot = await getDoc(result);
             console.log(snapshot.data())
-            pushUser(userid,jwtresult)
+            pushUser(userid,jwtresult,"person")
             return {
                 ...snapshot.data(),
                 id:snapshot.id,

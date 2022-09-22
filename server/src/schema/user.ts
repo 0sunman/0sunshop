@@ -5,6 +5,7 @@ const userSchema = gql`
         userid:String!
         password:String!
         token:String
+        role:String
     }
     type UserLogut{
         userid:String!
@@ -13,6 +14,7 @@ const userSchema = gql`
     type UserConfirm{
         userid:String!
         isLogin:Boolean!
+        role:String
     }
     extend type Query{
         users(userid:String):[User!]
