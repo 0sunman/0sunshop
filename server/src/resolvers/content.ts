@@ -14,6 +14,11 @@ const contentResolver:Resolver = {
             content:async (parent,{id},{data})=>{
                 const result = await data('componenttool').select().where("id",id);
                 return result;
+            },
+            contentslike:async (parent,{title},{data})=>{
+//                await data("componenttool").where("selector",null).del()
+                const result = await data('componenttool').select().where("title","like",`%${title}%`);
+                return result;
             }
         },
         Mutation:{
