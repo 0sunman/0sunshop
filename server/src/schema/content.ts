@@ -13,6 +13,7 @@ const contentSchema = gql`
     extend type Query{
         contents:[Content]
         content(id:String!): [Content]
+        contentslike(title:String!):[Content]
     }
     extend type Mutation{
         addContent(title: String, content: String, path:String, selector:String, imgUrl:String):[Content]
