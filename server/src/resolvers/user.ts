@@ -41,7 +41,7 @@ const userResolver:Resolver = {
             const result:any = snapshot.docs.map(doc=>({...doc.data()}))
             if(result.length === 0) return {state:"Fail to login."}
             console.log(result);
-            pushUser(userid,jwtresult,result.role);
+            pushUser(userid,jwtresult,result[0].role);
             return {...result[0],token:jwtresult};
        },
        logoutUser:async (parent,{userid})=>{
