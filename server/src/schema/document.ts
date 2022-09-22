@@ -8,6 +8,7 @@ const documentSchema = gql`
         title:String,
         imgUrl:String
         selector:String,
+        path:String,
         createdAt:String,
     }
     extend type Query{
@@ -20,15 +21,17 @@ const documentSchema = gql`
             author:String,
             content:String,
             title:String,
-            imgUrl:String
-            selector:String
+            imgUrl:String,
+            selector:String,
+            path:String,
             ):[Document]
         modifyDocument(
             author:String,
             content:String,
             title:String,
-            imgUrl:String
-            selector:String
+            imgUrl:String,
+            selector:String,
+            path:String
             ):[Document]
         removeDocument(id:Int!):[Document]
     }
