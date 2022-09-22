@@ -40,6 +40,7 @@ const userResolver:Resolver = {
             const jwtresult = generateAccessToken(userid);
             const result:any = snapshot.docs.map(doc=>({...doc.data()}))
             if(result.length === 0) return {state:"Fail to login."}
+            console.log(result);
             pushUser(userid,jwtresult,result.role);
             return {...result[0],token:jwtresult};
        },
