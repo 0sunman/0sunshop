@@ -12,7 +12,7 @@ import axios from 'axios';
     const port = env.PORT || 8000
     const imageServerURL = env.CLOUDFLARE_IMAGE_SERVER as string;    
     const imageServerToken = env.CLOUDFLARE_IMAGE_TOKEN as string;
-    const CROSS_DOMAIN_LIST = [clientUrl, "https://shop.0sun.net","http://localhost:3000","http://localhost","https://localhost:3000","https://localhost","https://10.108.70.52:3000/","https://10.108.70.52","https://10.108.70.52:3000/","https://10.108.70.52" ,"https://the.0sun.net","https://ts.0sun.net","https://hcomponent.vercel.app","https://hdeptcomponenttool.vercel.app", "https://hdeptcomponenttool.vercel.app/", "https://page.0sun.net", 'https://studio.apollographql.com'];
+    const CROSS_DOMAIN_LIST = [clientUrl, "https://shop.0sun.net","http://localhost:3000","http://localhost","https://localhost:3000","https://localhost","https://10.108.70.52:3000/","https://10.108.70.52","https://10.108.70.52:3000/","https://10.108.70.52" ,"https://the.0sun.net","https://ts.0sun.net","https://hcomponent.vercel.app","https://hdeptcomponenttool.vercel.app", "https://hdeptcomponenttool.vercel.app/", "https://page.0sun.net", 'https://studio.apollographql.com',"https://ts.thehyundai.works"];
     
     const app = express();
     const config:Knex.Config = {
