@@ -18,6 +18,11 @@ const contentResolver:Resolver = {
 //                await data("componenttool").where("selector",null).del()
                 const result = await data('componenttool').select().where("title","like",`%${title}%`);
                 return result;
+            },
+            contentspath:async (parent,{path},{data})=>{
+//                await data("componenttool").where("selector",null).del()
+                const result = await data('componenttool').select().where("path",path);
+                return result;
             }
         },
         Mutation:{

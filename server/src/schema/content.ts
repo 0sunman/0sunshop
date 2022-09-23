@@ -14,6 +14,7 @@ const contentSchema = gql`
         contents:[Content]
         content(id:String!): [Content]
         contentslike(title:String!):[Content]
+        contentspath(path:String!):[Content]
     }
     extend type Mutation{
         addContent(title: String, content: String, path:String, selector:String, imgUrl:String):[Content]
