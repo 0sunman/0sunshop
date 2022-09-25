@@ -57,7 +57,7 @@ const documentResolver:Resolver = {
         Mutation:{
             addDocument:async (parent,{author, content, title, imgUrl, selector, path},{data},info)=>{
                 await data('documents').insert({author, content, title, imgUrl, selector, path});
-                const result = await data('documents').select().limit(1).orderBy('id', 'desc');
+                const result = await data('documents').select().orderBy('id', 'desc').limit(1);
                 console.log(result);
                 return Number(result[0].id);
             },
