@@ -24,7 +24,7 @@ const documentSchema = gql`
             imgUrl:String,
             selector:String,
             path:String,
-            ):Int
+            ):[Int]
         modifyDocument(
             author:String,
             content:String,
