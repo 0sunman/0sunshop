@@ -58,6 +58,7 @@ const documentResolver:Resolver = {
             addDocument:async (parent,{author, content, title, imgUrl, selector, path},{data},info)=>{
                 await data('documents').insert({author, content, title, imgUrl, selector, path});
                 const result = await data('documents').select().limit(1).orderBy('id', 'desc');
+                console.log(result);
                 return Number(result[0].id);
             },
             modifyDocument:async (parent,{id, author, content, title, imgUrl, selector, path},{data},info)=>{
