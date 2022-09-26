@@ -27,6 +27,7 @@ const documentSchema = gql`
             path:String,
             ):[Document]
         modifyDocument(
+            id:Int!
             author:String,
             content:String,
             title:String,
