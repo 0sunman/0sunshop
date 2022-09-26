@@ -49,6 +49,10 @@ const documentResolver:Resolver = {
                 const result = await data('documents').select().where("id",id);
                 return result;
             },
+            documentsauthor:async (parent,{author},{data})=>{
+                const result = await data('documents').select().where("author",author);
+                return result;
+            },
             documentslike:async (parent,{title},{data})=>{
                 const result = await data('documents').select().where("title","like",`%${title}%`);
                 return result;
@@ -62,7 +66,7 @@ const documentResolver:Resolver = {
             },
             modifyDocument:async (parent,{id, author, content, title, imgUrl, selector, path},{data},info)=>{
                 await data('documents').where("id",id).update({author, content, title, imgUrl, selector, path})
-                const result = await data('documents').select();
+                const result = await data('documents').select().where("id",id).orderBy('id', 'desc');
                 return result;
             },
             removeDocument:async (parent,{id},{data},info)=>{
