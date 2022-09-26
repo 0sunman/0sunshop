@@ -15,7 +15,7 @@ const documentSchema = gql`
         documents:[Document]
         document(id:Int!): [Document]
         documentslike(title:String!): [Document]
-        documentsauthor(title:String!): [Document]
+        documentsauthor(author:String!): [Document]
     }
     extend type Mutation{
         addDocument(
