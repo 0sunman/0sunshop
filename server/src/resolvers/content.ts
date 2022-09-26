@@ -7,7 +7,7 @@ import { v4 } from 'uuid';
 const contentResolver:Resolver = {
         Query:{
             contents:async (parent,args,{data})=>{
-                const result = await data('componenttool').select();
+                const result = await data('componenttool').select().orderBy('id', 'desc');
                 return result;
             },
             content:async (parent,{id},{data})=>{
@@ -16,12 +16,12 @@ const contentResolver:Resolver = {
             },
             contentslike:async (parent,{title},{data})=>{
 //                await data("componenttool").where("selector",null).del()
-                const result = await data('componenttool').select().where("title","like",`%${title}%`);
+                const result = await data('componenttool').select().where("title","like",`%${title}%`).orderBy('id', 'desc');
                 return result;
             },
             contentspath:async (parent,{path},{data})=>{
 //                await data("componenttool").where("selector",null).del()
-                const result = await data('componenttool').select().where("path",path);
+                const result = await data('componenttool').select().where("path",path).orderBy('id', 'desc');
                 return result;
             }
         },

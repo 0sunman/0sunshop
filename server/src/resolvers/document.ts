@@ -42,7 +42,7 @@ extend type Query{
 const documentResolver:Resolver = {
         Query:{
             documents:async (parent,args,{data})=>{
-                const result = await data('documents').select();
+                const result = await data('documents').select().orderBy('id', 'desc');
                 return result;
             },
             document:async (parent,{id},{data})=>{
@@ -50,11 +50,11 @@ const documentResolver:Resolver = {
                 return result;
             },
             documentsauthor:async (parent,{author},{data})=>{
-                const result = await data('documents').select().where("author",author);
+                const result = await data('documents').select().where("author",author).orderBy('id', 'desc');
                 return result;
             },
             documentslike:async (parent,{title},{data})=>{
-                const result = await data('documents').select().where("title","like",`%${title}%`);
+                const result = await data('documents').select().where("title","like",`%${title}%`).orderBy('id', 'desc');
                 return result;
             }
         },
