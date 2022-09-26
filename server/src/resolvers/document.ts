@@ -64,8 +64,8 @@ const documentResolver:Resolver = {
                 const result = await data('documents').select().orderBy('id', 'desc').limit(1);
                 return result;
             },
-            modifyDocument:async (parent,{id, author, content, title, imgUrl, selector, path},{data},info)=>{
-                await data('documents').where("id",id).update({author, content, title, imgUrl, selector, path})
+            modifyDocument:async (parent,{id, author, content, title, imgUrl, selector, path, componentList},{data},info)=>{
+                await data('documents').where("id",id).update({author, content, title, imgUrl, selector, path, componentList})
                 const result = await data('documents').select().where("id",id).orderBy('id', 'desc');
                 return result;
             },

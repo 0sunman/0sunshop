@@ -10,6 +10,7 @@ const documentSchema = gql`
         selector:String,
         path:String,
         createdAt:String,
+        componentList:String
     }
     extend type Query{
         documents:[Document]
@@ -33,7 +34,8 @@ const documentSchema = gql`
             title:String,
             imgUrl:String,
             selector:String,
-            path:String
+            path:String,
+            componentList:String
             ):[Document]
         removeDocument(id:Int!):[Document]
     }
