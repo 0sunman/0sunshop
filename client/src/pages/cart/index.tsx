@@ -19,7 +19,7 @@ const CartPage = () => {
         navigate("/login")
     }
 
-    const {data,isLoading,isFetched,isFetching,isSuccess} = useQuery<Cart[]>("getCart",()=>graphqlFetcher(GET_CART,{userid:window.localStorage.getItem("userid")}),{staleTime:0, cacheTime:1000,
+    const {data,isLoading,isFetched,isFetching,isSuccess} = useQuery<Cart[]>("getCart",()=>graphqlFetcher(GET_CART,{userid:window.localStorage.getItem("userid")?window.localStorage.getItem("userid"):""}),{staleTime:0, cacheTime:1000,
         onSuccess:({cart})=>{
             console.log(cart);
             console.log(cart.length)
