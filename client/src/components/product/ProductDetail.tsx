@@ -44,13 +44,13 @@ const ProductDetailPage = ({
 
      useEffect(()=>{
         if(isLoading){
-            setIsLoading(true)
+            setIsLoading(false)
         }else{
             setIsLoading(false)
         }
 
         if(isFetching){
-            setIsLoading(true)
+            setIsLoading(false)
         }else{
             setIsLoading(false)
         }
