@@ -16,13 +16,13 @@ const detailImageSchema = gql`
             src:String,
             description:String,
         ):DetailImage
-        updateDetailImage(
+        modifyDetailImage(
             _id:ID,
             id:ID,
             src:String,
             description:String,
         ):DetailImage
-        deleteDetailImage(_id:ID):ID
+        removeDetailImage(_id:ID):ID
     }
 `
 export default detailImageSchema;
