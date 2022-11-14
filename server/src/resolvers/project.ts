@@ -1,13 +1,20 @@
 import {Resolver} from './types'
 // import {writeDB, DBField, modifyDB} from './../jsondb'
 import { v4 } from 'uuid';
+import e from 'express';
 
 // const setJSON = (data:any) => writeDB(DBField.CONTENTS, data);
 // const modifyJSON = (id:string, title:string, path:string, selector:string, data:any) => modifyDB(DBField.CONTENTS, id, title, path,selector, data);
 const projectResolver:Resolver = {
         Query:{
-            projects:async (parent,args,{data})=>{
-                const result = await data('project').select().orderBy('id', 'desc');
+            projects:async (parent,{lastid=-1,limit=1},{data})=>{
+                let result;
+                if(lastid == -1){
+                    result = await data('project').select().orderBy('id', 'desc').limit(limit);
+
+                }else{
+                    result = await data('project').select().where("id","<",lastid).orderBy('id', 'desc').limit(limit);
+                }
                 return result;
             },
             project:async (parent,{id},{data})=>{
@@ -19,9 +26,9 @@ const projectResolver:Resolver = {
                 const result = await data('project').select().where("title","like",`%${title}%`).orderBy('id', 'desc');
                 return result;
             },
-            projectspath:async (parent,{path},{data})=>{
+            projectslikelanguage:async (parent,{path},{data})=>{
 //                await data("project").where("selector",null).del()
-                const result = await data('project').select().where("path",path).orderBy('id', 'desc');
+                const result = await data('project').select().where("language",path).orderBy('id', 'desc');
                 return result;
             }
         },
