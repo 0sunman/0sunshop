@@ -5,6 +5,8 @@ import userSchema from './user';
 import contentSchema from './content';
 import cdRelationSchema from './cdtable';
 import documentSchema from './document';
+import imageDetailSchema from './detailImage'
+import projectSchema from './project'
 
 const linkSchema = gql `
     type Query{
@@ -15,4 +17,4 @@ const linkSchema = gql `
     }
 `
 
-export default [linkSchema, productSchema, cartSchema,userSchema, contentSchema,cdRelationSchema, documentSchema]
+export default [linkSchema, productSchema, cartSchema,userSchema, contentSchema,cdRelationSchema, documentSchema, imageDetailSchema, projectSchema]

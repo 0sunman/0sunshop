@@ -4,5 +4,6 @@ import userResolver from "./user";
 import contentResolver from "./content";
 import documentResolver from "./document";
 import cdRelationResolver from "./cdtable";
-
-export default [productResolver, cartResolver, userResolver, contentResolver,documentResolver,cdRelationResolver]
+import projectResolver from "./project";
+import detailImageResolver from "./detailImage";
+export default [productResolver, cartResolver, userResolver, contentResolver,documentResolver,cdRelationResolver,projectResolver,detailImageResolver]
