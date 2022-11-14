@@ -21,7 +21,7 @@ const projectSchema = gql`
         endDate:String
     }
     extend type Query{
-        projects:[Project]
+        projects(lastid:Int!,limit:Int!):[Project]
         project(id:Int!): [Project]
         projectslike(title:String!): [Project]
         projectslikelanguage(language:String!): [Project]

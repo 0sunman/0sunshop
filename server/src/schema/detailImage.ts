@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server-express'
 
-const imageDetailSchema = gql`
+const detailImageSchema = gql`
     type DetailImage {
         _id:ID,
         id:ID,
@@ -8,7 +8,7 @@ const imageDetailSchema = gql`
         description:String,
     }
     extend type Query{
-        images(id: ID!): [DetailImage]
+        detailImages(id: ID!): [DetailImage]
     }
     extend type Mutation{
         addDetailImage(
@@ -25,4 +25,4 @@ const imageDetailSchema = gql`
         deleteDetailImage(_id:ID):ID
     }
 `
-export default imageDetailSchema;
+export default detailImageSchema;
