@@ -17,8 +17,8 @@ const projectSchema = gql`
         content:String,
         language:String,
         detailImageId:Int,
-        startDate:Date,
-        endDate:Date
+        startDate:String,
+        endDate:String
     }
     extend type Query{
         projects:[Project]
@@ -32,8 +32,8 @@ const projectSchema = gql`
             content:String,
             language:String,
             detailImageId:Int,
-            startDate:Date,
-            endDate:Date
+            startDate:String,
+            endDate:String
             ):[Project]
         modifyProject(
             id:Int!,
@@ -41,8 +41,8 @@ const projectSchema = gql`
             content:String,
             language:String,
             detailImageId:Int,
-            startDate:Date,
-            endDate:Date
+            startDate:String,
+            endDate:String
             ):[Project]
         removeProject(id:Int!):[Project]
     }
