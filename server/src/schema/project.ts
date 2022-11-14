@@ -44,7 +44,7 @@ const projectSchema = gql`
             startDate:Date,
             endDate:Date
             ):[Project]
-        removeDocument(id:Int!):[Project]
+        removeProject(id:Int!):[Project]
     }
 `
 
